@@ -65,9 +65,16 @@ public class ProdutoImplementation implements ProdutoGateway {
     }
 
     @Override
-    public List<ProdutoDomainResponse> buscaProdutoPorCategoria(String nomeCategoria) {
+    public List<ProdutoDomainResponse> buscarProdutoPorCategoria(String nomeCategoria) {
         List<ProdutoEntity> produtosPorCategoria = produtoRepository.findByCategoriaNome(nomeCategoria);
 
         return ProdutoMapperResponse.toCollectionDomain(produtosPorCategoria);
+    }
+
+    @Override
+    public List<ProdutoDomainResponse> buscarProdutoPorMarca(String marca) {
+        List<ProdutoEntity> produtosPorMarca = produtoRepository.findByMarcaContaining(marca);
+
+        return ProdutoMapperResponse.toCollectionDomain(produtosPorMarca);
     }
 }

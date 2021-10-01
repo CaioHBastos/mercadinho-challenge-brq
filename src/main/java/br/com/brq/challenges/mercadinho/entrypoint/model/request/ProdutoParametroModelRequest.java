@@ -8,9 +8,11 @@ import java.beans.ConstructorProperties;
 public class ProdutoParametroModelRequest {
 
     private String nomeCategoria;
+    private String marca;
 
-    @ConstructorProperties(value = {"nome_categoria"})
-    public ProdutoParametroModelRequest(String nomeCategoria) {
+    @ConstructorProperties(value = {"nome_categoria", "marca"})
+    public ProdutoParametroModelRequest(String nomeCategoria, String marca) {
         this.nomeCategoria = nomeCategoria;
+        this.marca = marca;
     }
 }

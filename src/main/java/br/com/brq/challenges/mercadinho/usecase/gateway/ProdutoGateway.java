@@ -19,5 +19,7 @@ public interface ProdutoGateway {
 
     ProdutoDomainResponse atualizarParcialmenteOsDadosProduto(ProdutoDomainResponse produtoAtual);
 
-    List<ProdutoDomainResponse> buscaProdutoPorCategoria(String nomeCategoria);
+    List<ProdutoDomainResponse> buscarProdutoPorCategoria(String nomeCategoria);
+
+    List<ProdutoDomainResponse> buscarProdutoPorMarca(String marca);
 }

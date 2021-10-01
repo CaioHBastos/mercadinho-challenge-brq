@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Component
@@ -38,9 +37,10 @@ public class CategoriaImplementation implements CategoriaGateway {
 
     @Override
     public CategoriaDomainResponse buscarCategoriaPorId(Long idCategoria) {
-        Optional<CategoriaEntity> categoriaEntity = categoriaRepository.findById(idCategoria);
+        CategoriaEntity categoriaEntity = categoriaRepository.findById(idCategoria)
+                .orElse(CategoriaEntity.builder().build());
 
-        return CategoriaMapperResponse.toDomain(categoriaEntity.get());
+        return CategoriaMapperResponse.toDomain(categoriaEntity);
     }
 
     @Transactional
@@ -56,5 +56,12 @@ public class CategoriaImplementation implements CategoriaGateway {
         CategoriaEntity categoriaSalva = categoriaRepository.save(novaCategoria);
 
         return CategoriaMapperResponse.toDomain(categoriaSalva);
+    }
+
+    @Override
+    public CategoriaDomainResponse buscarCategoriaPorNome(String nome) {
+        CategoriaEntity categoriaExistente = categoriaRepository.findByNome(nome);
+
+        return CategoriaMapperResponse.toDomain(categoriaExistente);
     }
 }

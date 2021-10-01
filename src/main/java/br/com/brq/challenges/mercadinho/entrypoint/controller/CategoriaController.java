@@ -35,6 +35,10 @@ public class CategoriaController {
         List<CategoriaDomainResponse> categoriasDomain = categoriaUseCase.buscarCategorias();
         List<CategoriaModelResponse> categoriasModel = CategoriaMapperResponse.toCollectionModel(categoriasDomain);
 
+        if (categoriasModel.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
         return ResponseEntity.ok(categoriasModel);
     }
 

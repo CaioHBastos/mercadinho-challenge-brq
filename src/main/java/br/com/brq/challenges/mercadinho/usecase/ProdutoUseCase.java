@@ -28,7 +28,11 @@ public class ProdutoUseCase {
     public List<ProdutoDomainResponse> buscarTodosProdutos(ProdutoParametroModelRequest produtoParametroModelRequest) {
 
         if (StringUtils.isNotBlank(produtoParametroModelRequest.getNomeCategoria())) {
-            return produtoGateway.buscaProdutoPorCategoria(produtoParametroModelRequest.getNomeCategoria());
+            return produtoGateway.buscarProdutoPorCategoria(produtoParametroModelRequest.getNomeCategoria());
+        }
+
+        if (StringUtils.isNotBlank(produtoParametroModelRequest.getMarca())) {
+            return produtoGateway.buscarProdutoPorMarca(produtoParametroModelRequest.getMarca());
         }
 
         return produtoGateway.buscarTodosProdutos();

@@ -4,6 +4,7 @@ import br.com.brq.challenges.mercadinho.usecase.domain.request.CategoriaDomainRe
 import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoriaGateway {
 
@@ -16,4 +17,6 @@ public interface CategoriaGateway {
     void removerCategoriaPorId(Long idCategoria);
 
     CategoriaDomainResponse atualizarCategoria(CategoriaDomainResponse categoriaAtual);
+
+    CategoriaDomainResponse buscarCategoriaPorNome(String nome);
 }

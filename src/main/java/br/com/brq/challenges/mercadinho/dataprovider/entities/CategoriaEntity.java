@@ -4,8 +4,6 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -24,8 +22,8 @@ public class CategoriaEntity {
     @Column(nullable = false)
     private String nome;
 
-    @OneToMany(targetEntity=ProdutoEntity.class,mappedBy="categoria",cascade={CascadeType.ALL},orphanRemoval=true)
-    private List<ProdutoEntity> produtos = new ArrayList<>();
+    //@OneToMany(targetEntity=ProdutoEntity.class,mappedBy="categoria",cascade={CascadeType.ALL},orphanRemoval=true)
+    //private List<ProdutoEntity> produtos = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
