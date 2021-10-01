@@ -3,6 +3,7 @@ package br.com.brq.challenges.mercadinho.entrypoint.controller;
 import br.com.brq.challenges.mercadinho.entrypoint.mapper.request.ProdutoMapperRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.mapper.response.ProdutoMapperResponse;
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoModelResquest;
+import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoParametroModelRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoModelResponse;
 import br.com.brq.challenges.mercadinho.usecase.ProdutoUseCase;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
@@ -32,8 +33,8 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProdutoModelResponse>> buscarTodos() {
-        List<ProdutoDomainResponse> produtosDomain = produtoUseCase.buscarTodosProdutos();
+    public ResponseEntity<List<ProdutoModelResponse>> buscarTodos(ProdutoParametroModelRequest produtoParametroModelRequest) {
+        List<ProdutoDomainResponse> produtosDomain = produtoUseCase.buscarTodosProdutos(produtoParametroModelRequest);
         List<ProdutoModelResponse> produtosModel = ProdutoMapperResponse.toCollectionModel(produtosDomain);
 
         return ResponseEntity.ok(produtosModel);

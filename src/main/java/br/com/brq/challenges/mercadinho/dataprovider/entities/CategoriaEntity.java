@@ -24,7 +24,7 @@ public class CategoriaEntity {
     @Column(nullable = false)
     private String nome;
 
-    @OneToMany(mappedBy = "categoria")
+    @OneToMany(targetEntity=ProdutoEntity.class,mappedBy="categoria",cascade={CascadeType.ALL},orphanRemoval=true)
     private List<ProdutoEntity> produtos = new ArrayList<>();
 
     @Override

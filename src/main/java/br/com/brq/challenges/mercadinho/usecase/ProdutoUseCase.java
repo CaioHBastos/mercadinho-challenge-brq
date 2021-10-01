@@ -1,11 +1,13 @@
 package br.com.brq.challenges.mercadinho.usecase;
 
+import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoParametroModelRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainResponse;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
 import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -18,13 +20,17 @@ import java.util.Map;
 public class ProdutoUseCase {
 
     private final ProdutoGateway produtoGateway;
-    private final CategoriaUseCase categoriaUseCase;
 
     public ProdutoDomainResponse cadastrarProduto(ProdutoDomainRequest produtoDomainRequest) {
         return produtoGateway.cadastrarProduto(produtoDomainRequest);
     }
 
-    public List<ProdutoDomainResponse> buscarTodosProdutos() {
+    public List<ProdutoDomainResponse> buscarTodosProdutos(ProdutoParametroModelRequest produtoParametroModelRequest) {
+
+        if (StringUtils.isNotBlank(produtoParametroModelRequest.getNomeCategoria())) {
+            return produtoGateway.buscaProdutoPorCategoria(produtoParametroModelRequest.getNomeCategoria());
+        }
+
         return produtoGateway.buscarTodosProdutos();
     }
 

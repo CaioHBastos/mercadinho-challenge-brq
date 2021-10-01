@@ -18,4 +18,6 @@ public interface ProdutoGateway {
     ProdutoDomainResponse atualizarTodosOsDadosProduto(ProdutoDomainResponse produtoAtual);
 
     ProdutoDomainResponse atualizarParcialmenteOsDadosProduto(ProdutoDomainResponse produtoAtual);
+
+    List<ProdutoDomainResponse> buscaProdutoPorCategoria(String nomeCategoria);
 }

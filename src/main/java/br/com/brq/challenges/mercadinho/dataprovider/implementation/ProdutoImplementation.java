@@ -63,4 +63,11 @@ public class ProdutoImplementation implements ProdutoGateway {
 
         return ProdutoMapperResponse.toDomain(produtoAtualizadoSalvo);
     }
+
+    @Override
+    public List<ProdutoDomainResponse> buscaProdutoPorCategoria(String nomeCategoria) {
+        List<ProdutoEntity> produtosPorCategoria = produtoRepository.findByCategoriaNome(nomeCategoria);
+
+        return ProdutoMapperResponse.toCollectionDomain(produtosPorCategoria);
+    }
 }
