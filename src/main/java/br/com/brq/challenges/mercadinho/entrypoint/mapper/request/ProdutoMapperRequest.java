@@ -17,6 +17,7 @@ public class ProdutoMapperRequest {
                 .ativo(Boolean.TRUE)
                 .ofertado(Boolean.FALSE)
                 .porcentagemOferta(0)
+                .categoria(CategoriaMapperRequest.toDomainId(produtoModelResquest.getCategoria()))
                 .build();
     }
 
@@ -30,6 +31,7 @@ public class ProdutoMapperRequest {
                 .ativo(produtoModelResquest.getAtivo())
                 .ofertado(produtoModelResquest.getOfertado())
                 .porcentagemOferta(produtoModelResquest.getPorcentagemOferta())
+                .categoria(CategoriaMapperRequest.toDomainId(produtoModelResquest.getCategoria()))
                 .build();
     }
 }

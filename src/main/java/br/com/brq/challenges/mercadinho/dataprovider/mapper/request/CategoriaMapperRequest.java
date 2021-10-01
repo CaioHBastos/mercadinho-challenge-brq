@@ -4,6 +4,8 @@ import br.com.brq.challenges.mercadinho.dataprovider.entities.CategoriaEntity;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.CategoriaDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainResponse;
 
+import java.util.Objects;
+
 public class CategoriaMapperRequest {
 
     private CategoriaMapperRequest() {}
@@ -18,6 +20,26 @@ public class CategoriaMapperRequest {
         return CategoriaEntity.builder()
                 .id(categoriaAtual.getId())
                 .nome(categoriaAtual.getNome())
+                .build();
+    }
+
+    public static CategoriaEntity toEntityId(CategoriaDomainRequest categoria) {
+        if (Objects.isNull(categoria)) {
+            return CategoriaEntity.builder().build();
+        }
+
+        return CategoriaEntity.builder()
+                .id(categoria.getId())
+                .build();
+    }
+
+    public static CategoriaEntity toEntityIdAtualizado(CategoriaDomainResponse categoria) {
+        if (Objects.isNull(categoria)) {
+            return CategoriaEntity.builder().build();
+        }
+
+        return CategoriaEntity.builder()
+                .id(categoria.getId())
                 .build();
     }
 }

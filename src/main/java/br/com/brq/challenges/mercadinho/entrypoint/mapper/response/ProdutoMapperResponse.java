@@ -27,6 +27,7 @@ public class ProdutoMapperResponse {
                 .ativo(produtoCadastradoDomain.getAtivo())
                 .ofertado(produtoCadastradoDomain.getOfertado())
                 .porcentagemOferta(produtoCadastradoDomain.getPorcentagemOferta())
+                .categoria(CategoriaMapperResponse.toModel(produtoCadastradoDomain.getCategoria()))
                 .build();
     }
 }

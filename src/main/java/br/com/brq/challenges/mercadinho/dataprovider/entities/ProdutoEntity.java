@@ -44,7 +44,7 @@ public class ProdutoEntity {
     @Column(nullable = false)
     private Integer porcentagemOfertado;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private CategoriaEntity categoria;
 

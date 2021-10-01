@@ -20,4 +20,5 @@ public class ProdutoDomainResponse {
     private Boolean ativo;
     private Boolean ofertado;
     private Integer porcentagemOferta;
+    private CategoriaDomainResponse categoria;
 }

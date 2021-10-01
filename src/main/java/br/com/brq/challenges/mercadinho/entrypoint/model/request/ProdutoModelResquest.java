@@ -20,4 +20,5 @@ public class ProdutoModelResquest {
     private Boolean ativo;
     private Boolean ofertado;
     private Integer porcentagemOferta;
+    private CategoriaIdModelRequest categoria;
 }

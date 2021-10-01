@@ -4,6 +4,7 @@ import br.com.brq.challenges.mercadinho.dataprovider.entities.CategoriaEntity;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainResponse;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CategoriaMapperResponse {
@@ -17,6 +18,10 @@ public class CategoriaMapperResponse {
     }
 
     public static CategoriaDomainResponse toDomain(CategoriaEntity categoriaSalva) {
+        if (Objects.isNull(categoriaSalva)) {
+            return CategoriaDomainResponse.builder().build();
+        }
+
         return CategoriaDomainResponse.builder()
                 .id(categoriaSalva.getId())
                 .nome(categoriaSalva.getNome())

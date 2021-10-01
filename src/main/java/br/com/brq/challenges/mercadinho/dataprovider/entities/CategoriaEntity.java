@@ -24,10 +24,7 @@ public class CategoriaEntity {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToMany
-    @JoinTable(name = "categoria_produto",
-            joinColumns = @JoinColumn(name = "categoria_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id"))
+    @OneToMany(mappedBy = "categoria")
     private List<ProdutoEntity> produtos = new ArrayList<>();
 
     @Override

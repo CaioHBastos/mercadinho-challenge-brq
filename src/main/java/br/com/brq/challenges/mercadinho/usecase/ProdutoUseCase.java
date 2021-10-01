@@ -1,6 +1,7 @@
 package br.com.brq.challenges.mercadinho.usecase;
 
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
+import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainResponse;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
 import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class ProdutoUseCase {
 
     private final ProdutoGateway produtoGateway;
+    private final CategoriaUseCase categoriaUseCase;
 
     public ProdutoDomainResponse cadastrarProduto(ProdutoDomainRequest produtoDomainRequest) {
         return produtoGateway.cadastrarProduto(produtoDomainRequest);
@@ -37,6 +39,10 @@ public class ProdutoUseCase {
     public ProdutoDomainResponse atualizarTodosOsDadosProduto(Long idProduto, ProdutoDomainRequest novoProdutoDomain) {
         ProdutoDomainResponse produtoAtual = buscarProdutoPorId(idProduto);
 
+        CategoriaDomainResponse categoriaAtual = CategoriaDomainResponse.builder()
+                .id(novoProdutoDomain.getCategoria().getId())
+                .build();
+
         produtoAtual = ProdutoDomainResponse.builder()
                 .id(produtoAtual.getId())
                 .nome(novoProdutoDomain.getNome())
@@ -47,6 +53,7 @@ public class ProdutoUseCase {
                 .ativo(novoProdutoDomain.getAtivo())
                 .ofertado(novoProdutoDomain.getOfertado())
                 .porcentagemOferta(novoProdutoDomain.getPorcentagemOferta())
+                .categoria(categoriaAtual)
                 .build();
 
         return produtoGateway.atualizarTodosOsDadosProduto(produtoAtual);
