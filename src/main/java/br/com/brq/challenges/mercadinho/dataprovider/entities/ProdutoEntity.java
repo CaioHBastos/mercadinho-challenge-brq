@@ -7,6 +7,13 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * Classe responsável por ser a entidade de produto para carregar os dados
+ * para a tabela de <b>produto</b> na base de dados do mercadinho.
+ *
+ * @author Caio Henrique Bastos
+ * @since 01/10/2021
+ */
 @Getter
 @Builder
 @NoArgsConstructor

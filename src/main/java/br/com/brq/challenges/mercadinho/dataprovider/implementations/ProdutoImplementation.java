@@ -1,8 +1,8 @@
-package br.com.brq.challenges.mercadinho.dataprovider.implementation;
+package br.com.brq.challenges.mercadinho.dataprovider.implementations;
 
 import br.com.brq.challenges.mercadinho.dataprovider.entities.ProdutoEntity;
-import br.com.brq.challenges.mercadinho.dataprovider.mapper.request.ProdutoMapperRequest;
-import br.com.brq.challenges.mercadinho.dataprovider.mapper.response.ProdutoMapperResponse;
+import br.com.brq.challenges.mercadinho.dataprovider.mappers.request.ProdutoMapperDataproviderRequest;
+import br.com.brq.challenges.mercadinho.dataprovider.mappers.response.ProdutoMapperResponse;
 import br.com.brq.challenges.mercadinho.dataprovider.repositories.ProdutoRepository;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
@@ -14,6 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Classe responsável por implementar o contrato com os métodos da produto e com isso
+ * a classe de implementação <b>ProdutoImplementation</b> irá implementar os métodos
+ * e escrever quais os serviços que serão feitos na base de dados.
+ *
+ * @author Caio Henrique Bastos
+ * @since 01/10/2021
+ */
 @AllArgsConstructor
 @Component
 public class ProdutoImplementation implements ProdutoGateway {
@@ -23,7 +31,7 @@ public class ProdutoImplementation implements ProdutoGateway {
     @Transactional
     @Override
     public ProdutoDomainResponse cadastrarProduto(ProdutoDomainRequest produtoDomainRequest) {
-        ProdutoEntity novoProduto = ProdutoMapperRequest.toEntity(produtoDomainRequest);
+        ProdutoEntity novoProduto = ProdutoMapperDataproviderRequest.toEntity(produtoDomainRequest);
         ProdutoEntity produtoSalvo = produtoRepository.save(novoProduto);
 
         return ProdutoMapperResponse.toDomain(produtoSalvo);
@@ -50,7 +58,7 @@ public class ProdutoImplementation implements ProdutoGateway {
     @Transactional
     @Override
     public ProdutoDomainResponse atualizarTodosOsDadosProduto(ProdutoDomainResponse produtoAtual) {
-        ProdutoEntity novoProdutoAtualizado = ProdutoMapperRequest.toEntityAtualizado(produtoAtual);
+        ProdutoEntity novoProdutoAtualizado = ProdutoMapperDataproviderRequest.toEntityAtualizado(produtoAtual);
         ProdutoEntity produtoAtualizadoSalvo = produtoRepository.save(novoProdutoAtualizado);
 
         return ProdutoMapperResponse.toDomain(produtoAtualizadoSalvo);
@@ -58,7 +66,7 @@ public class ProdutoImplementation implements ProdutoGateway {
 
     @Override
     public ProdutoDomainResponse atualizarParcialmenteOsDadosProduto(ProdutoDomainResponse produtoAtual) {
-        ProdutoEntity novoProdutoAtualizado = ProdutoMapperRequest.toEntityAtualizado(produtoAtual);
+        ProdutoEntity novoProdutoAtualizado = ProdutoMapperDataproviderRequest.toEntityAtualizado(produtoAtual);
         ProdutoEntity produtoAtualizadoSalvo = produtoRepository.save(novoProdutoAtualizado);
 
         return ProdutoMapperResponse.toDomain(produtoAtualizadoSalvo);

@@ -6,6 +6,13 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Classe responsável por ser a entidade de categoria para carregar os dados
+ * para a tabela de <b>categoria</b> na base de dados do mercadinho.
+ *
+ * @author Caio Henrique Bastos
+ * @since 01/10/2021
+ */
 @Getter
 @Builder
 @AllArgsConstructor
@@ -21,9 +28,6 @@ public class CategoriaEntity {
 
     @Column(nullable = false)
     private String nome;
-
-    //@OneToMany(targetEntity=ProdutoEntity.class,mappedBy="categoria",cascade={CascadeType.ALL},orphanRemoval=true)
-    //private List<ProdutoEntity> produtos = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

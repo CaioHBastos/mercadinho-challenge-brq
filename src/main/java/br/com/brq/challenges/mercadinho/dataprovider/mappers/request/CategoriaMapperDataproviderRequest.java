@@ -1,4 +1,4 @@
-package br.com.brq.challenges.mercadinho.dataprovider.mapper.request;
+package br.com.brq.challenges.mercadinho.dataprovider.mappers.request;
 
 import br.com.brq.challenges.mercadinho.dataprovider.entities.CategoriaEntity;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.CategoriaDomainRequest;
@@ -6,9 +6,10 @@ import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainR
 
 import java.util.Objects;
 
-public class CategoriaMapperRequest {
 
-    private CategoriaMapperRequest() {}
+public class CategoriaMapperDataproviderRequest {
+
+    private CategoriaMapperDataproviderRequest() {}
 
     public static CategoriaEntity toEntity(CategoriaDomainRequest categoriaDomainRequest) {
         return CategoriaEntity.builder()

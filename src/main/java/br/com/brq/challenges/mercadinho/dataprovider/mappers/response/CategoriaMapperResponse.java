@@ -1,4 +1,4 @@
-package br.com.brq.challenges.mercadinho.dataprovider.mapper.response;
+package br.com.brq.challenges.mercadinho.dataprovider.mappers.response;
 
 import br.com.brq.challenges.mercadinho.dataprovider.entities.CategoriaEntity;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainResponse;

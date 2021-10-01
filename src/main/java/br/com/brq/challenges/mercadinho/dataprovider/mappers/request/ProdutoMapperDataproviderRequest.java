@@ -1,12 +1,12 @@
-package br.com.brq.challenges.mercadinho.dataprovider.mapper.request;
+package br.com.brq.challenges.mercadinho.dataprovider.mappers.request;
 
 import br.com.brq.challenges.mercadinho.dataprovider.entities.ProdutoEntity;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
 
-public class ProdutoMapperRequest {
+public class ProdutoMapperDataproviderRequest {
 
-    private ProdutoMapperRequest() {}
+    private ProdutoMapperDataproviderRequest() {}
 
     public static ProdutoEntity toEntity(ProdutoDomainRequest produtoDomainRequest) {
         return ProdutoEntity.builder()
@@ -18,7 +18,7 @@ public class ProdutoMapperRequest {
                 .ativo(produtoDomainRequest.getAtivo())
                 .ofertado(produtoDomainRequest.getOfertado())
                 .porcentagemOfertado(produtoDomainRequest.getPorcentagemOferta())
-                .categoria(CategoriaMapperRequest.toEntityId(produtoDomainRequest.getCategoria()))
+                .categoria(CategoriaMapperDataproviderRequest.toEntityId(produtoDomainRequest.getCategoria()))
                 .build();
     }
 
@@ -33,7 +33,7 @@ public class ProdutoMapperRequest {
                 .ativo(produtoAtual.getAtivo())
                 .ofertado(produtoAtual.getOfertado())
                 .porcentagemOfertado(produtoAtual.getPorcentagemOferta())
-                .categoria(CategoriaMapperRequest.toEntityIdAtualizado(produtoAtual.getCategoria()))
+                .categoria(CategoriaMapperDataproviderRequest.toEntityIdAtualizado(produtoAtual.getCategoria()))
                 .build();
     }
 }
