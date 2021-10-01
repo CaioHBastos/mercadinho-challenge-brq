@@ -3,7 +3,7 @@ package br.com.brq.challenges.mercadinho.dataprovider.implementation;
 import br.com.brq.challenges.mercadinho.dataprovider.entities.CategoriaEntity;
 import br.com.brq.challenges.mercadinho.dataprovider.mapper.request.CategoriaMapperRequest;
 import br.com.brq.challenges.mercadinho.dataprovider.mapper.response.CategoriaMapperResponse;
-import br.com.brq.challenges.mercadinho.dataprovider.repository.CategoriaRepository;
+import br.com.brq.challenges.mercadinho.dataprovider.repositories.CategoriaRepository;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.CategoriaDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainResponse;
 import br.com.brq.challenges.mercadinho.usecase.gateway.CategoriaGateway;

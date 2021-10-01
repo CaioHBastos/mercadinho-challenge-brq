@@ -1,4 +1,4 @@
-package br.com.brq.challenges.mercadinho.dataprovider.repository;
+package br.com.brq.challenges.mercadinho.dataprovider.repositories;
 
 import br.com.brq.challenges.mercadinho.dataprovider.entities.CategoriaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
