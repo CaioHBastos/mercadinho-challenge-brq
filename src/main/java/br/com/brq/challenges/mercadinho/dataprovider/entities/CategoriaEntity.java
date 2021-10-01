@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -21,6 +23,12 @@ public class CategoriaEntity {
 
     @Column(nullable = false)
     private String nome;
+
+    @ManyToMany
+    @JoinTable(name = "categoria_produto",
+            joinColumns = @JoinColumn(name = "categoria_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id"))
+    private List<ProdutoEntity> produtos = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

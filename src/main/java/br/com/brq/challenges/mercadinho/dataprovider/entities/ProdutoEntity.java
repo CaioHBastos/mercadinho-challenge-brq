@@ -1,15 +1,16 @@
 package br.com.brq.challenges.mercadinho.dataprovider.entities;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "produto")
 public class ProdutoEntity {
@@ -42,4 +43,21 @@ public class ProdutoEntity {
 
     @Column(nullable = false)
     private Integer porcentagemOfertado;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private CategoriaEntity categoria;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        ProdutoEntity that = (ProdutoEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }
