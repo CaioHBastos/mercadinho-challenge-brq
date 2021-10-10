@@ -17,7 +17,7 @@ public class ProdutoMapperDataproviderRequest {
                 .preco(produtoDomainRequest.getPreco())
                 .ativo(produtoDomainRequest.getAtivo())
                 .ofertado(produtoDomainRequest.getOfertado())
-                .porcentagemOfertado(produtoDomainRequest.getPorcentagemOferta())
+                .porcentagemOfertado(produtoDomainRequest.getPorcentagem())
                 .categoria(CategoriaMapperDataproviderRequest.toEntityId(produtoDomainRequest.getCategoria()))
                 .build();
     }
@@ -32,7 +32,7 @@ public class ProdutoMapperDataproviderRequest {
                 .preco(produtoAtual.getPreco())
                 .ativo(produtoAtual.getAtivo())
                 .ofertado(produtoAtual.getOfertado())
-                .porcentagemOfertado(produtoAtual.getPorcentagemOferta())
+                .porcentagemOfertado(produtoAtual.getPorcentagem())
                 .categoria(CategoriaMapperDataproviderRequest.toEntityIdAtualizado(produtoAtual.getCategoria()))
                 .build();
     }

@@ -19,6 +19,6 @@ public class ProdutoModelResquest {
     private BigDecimal preco;
     private Boolean ativo;
     private Boolean ofertado;
-    private Integer porcentagemOferta;
+    private Integer porcentagem;
     private CategoriaIdModelRequest categoria;
 }

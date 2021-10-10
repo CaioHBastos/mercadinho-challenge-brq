@@ -6,13 +6,13 @@ import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainRes
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProdutoMapperResponse {
+public class ProdutoMapperEntrypointResponse {
 
-    private ProdutoMapperResponse() {}
+    private ProdutoMapperEntrypointResponse() {}
 
     public static List<ProdutoModelResponse> toCollectionModel(List<ProdutoDomainResponse> produtosDomain) {
         return produtosDomain.stream()
-                .map(ProdutoMapperResponse::toModel)
+                .map(ProdutoMapperEntrypointResponse::toModel)
                 .collect(Collectors.toList());
     }
 
@@ -26,8 +26,8 @@ public class ProdutoMapperResponse {
                 .preco(produtoCadastradoDomain.getPreco())
                 .ativo(produtoCadastradoDomain.getAtivo())
                 .ofertado(produtoCadastradoDomain.getOfertado())
-                .porcentagemOferta(produtoCadastradoDomain.getPorcentagemOferta())
-                .categoria(CategoriaMapperResponse.toModel(produtoCadastradoDomain.getCategoria()))
+                .porcentagem(produtoCadastradoDomain.getPorcentagem())
+                .categoria(CategoriaMapperEntrypointResponse.toModel(produtoCadastradoDomain.getCategoria()))
                 .build();
     }
 }

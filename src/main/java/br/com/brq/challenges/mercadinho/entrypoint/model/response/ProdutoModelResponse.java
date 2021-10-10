@@ -1,5 +1,6 @@
 package br.com.brq.challenges.mercadinho.entrypoint.model.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 @Getter
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProdutoModelResponse {
 
     private Long id;
@@ -20,6 +22,6 @@ public class ProdutoModelResponse {
     private BigDecimal preco;
     private Boolean ativo;
     private Boolean ofertado;
-    private Integer porcentagemOferta;
+    private Integer porcentagem;
     private CategoriaModelResponse categoria;
 }

@@ -1,8 +1,6 @@
 package br.com.brq.challenges.mercadinho.entrypoint.controller.exception;
 
-import br.com.brq.challenges.mercadinho.usecase.exception.EntidadeEmUsoException;
-import br.com.brq.challenges.mercadinho.usecase.exception.EntidadeExistenteException;
-import br.com.brq.challenges.mercadinho.usecase.exception.EntidadeNaoEncontradaException;
+import br.com.brq.challenges.mercadinho.usecase.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,6 +31,29 @@ public class HandlerAdviceException extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntidadeEmUsoException.class)
     public final ResponseEntity<?> handlerEntidadeEmUso(Exception exception) {
         HttpStatus httpStatus = HttpStatus.CONFLICT;
+
+        MensagemExceptionModelResponse mensagemException = montarRespostaExcecao(httpStatus, exception);
+
+        return ResponseEntity.status(httpStatus).body(mensagemException);
+    }
+
+    @ExceptionHandler(SemConteudoException.class)
+    public final ResponseEntity<?> handlerSemConteudo(Exception exception) {
+        return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(BadRequestPostException.class)
+    public final ResponseEntity<?> handlerBadRequestPost(Exception exception) {
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+
+        MensagemExceptionModelResponse mensagemException = montarRespostaExcecao(httpStatus, exception);
+
+        return ResponseEntity.status(httpStatus).body(mensagemException);
+    }
+
+    @ExceptionHandler(BadBusyException.class)
+    public final ResponseEntity<?> handlerBadBusy(Exception exception) {
+        HttpStatus httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
 
         MensagemExceptionModelResponse mensagemException = montarRespostaExcecao(httpStatus, exception);
 

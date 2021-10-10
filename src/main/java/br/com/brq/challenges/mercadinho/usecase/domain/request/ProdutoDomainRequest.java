@@ -16,6 +16,6 @@ public class ProdutoDomainRequest {
     private BigDecimal preco;
     private Boolean ativo;
     private Boolean ofertado;
-    private Integer porcentagemOferta;
+    private Integer porcentagem;
     private CategoriaDomainRequest categoria;
 }

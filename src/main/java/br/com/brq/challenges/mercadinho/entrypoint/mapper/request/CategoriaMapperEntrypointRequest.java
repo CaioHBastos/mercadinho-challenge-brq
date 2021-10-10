@@ -6,9 +6,9 @@ import br.com.brq.challenges.mercadinho.usecase.domain.request.CategoriaDomainRe
 
 import java.util.Objects;
 
-public class CategoriaMapperRequest {
+public class CategoriaMapperEntrypointRequest {
 
-    private CategoriaMapperRequest() {}
+    private CategoriaMapperEntrypointRequest() {}
 
     public static CategoriaDomainRequest toDomain(CategoriaModelRequest categoriaModelRequest) {
         return CategoriaDomainRequest.builder()

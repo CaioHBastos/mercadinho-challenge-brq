@@ -1,7 +1,7 @@
 package br.com.brq.challenges.mercadinho.entrypoint.controller;
 
-import br.com.brq.challenges.mercadinho.entrypoint.mapper.request.ProdutoMapperRequest;
-import br.com.brq.challenges.mercadinho.entrypoint.mapper.response.ProdutoMapperResponse;
+import br.com.brq.challenges.mercadinho.entrypoint.mapper.request.ProdutoMapperEntrypointRequest;
+import br.com.brq.challenges.mercadinho.entrypoint.mapper.response.ProdutoMapperEntrypointResponse;
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoModelResquest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoParametroModelRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoModelResponse;
@@ -25,9 +25,9 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<ProdutoModelResponse> salvar(@RequestBody ProdutoModelResquest produtoModelResquest) {
-        ProdutoDomainRequest novoProdutoDomain = ProdutoMapperRequest.toDomainCadastro(produtoModelResquest);
+        ProdutoDomainRequest novoProdutoDomain = ProdutoMapperEntrypointRequest.toDomainCadastro(produtoModelResquest);
         ProdutoDomainResponse produtoCadastradoDomain = produtoUseCase.cadastrarProduto(novoProdutoDomain);
-        ProdutoModelResponse produtoCadastradoModel = ProdutoMapperResponse.toModel(produtoCadastradoDomain);
+        ProdutoModelResponse produtoCadastradoModel = ProdutoMapperEntrypointResponse.toModel(produtoCadastradoDomain);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoCadastradoModel);
     }
@@ -35,7 +35,7 @@ public class ProdutoController {
     @GetMapping
     public ResponseEntity<List<ProdutoModelResponse>> buscarTodos(ProdutoParametroModelRequest produtoParametroModelRequest) {
         List<ProdutoDomainResponse> produtosDomain = produtoUseCase.buscarTodosProdutos(produtoParametroModelRequest);
-        List<ProdutoModelResponse> produtosModel = ProdutoMapperResponse.toCollectionModel(produtosDomain);
+        List<ProdutoModelResponse> produtosModel = ProdutoMapperEntrypointResponse.toCollectionModel(produtosDomain);
 
         return ResponseEntity.ok(produtosModel);
     }
@@ -43,20 +43,9 @@ public class ProdutoController {
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoModelResponse> buscarPorId(@PathVariable("id") Long idProduto) {
         ProdutoDomainResponse produtoDomain = produtoUseCase.buscarProdutoPorId(idProduto);
-        ProdutoModelResponse produtoModel = ProdutoMapperResponse.toModel(produtoDomain);
+        ProdutoModelResponse produtoModel = ProdutoMapperEntrypointResponse.toModel(produtoDomain);
 
         return ResponseEntity.ok(produtoModel);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ProdutoModelResponse> atualizarProduto(@PathVariable("id") Long idProduto,
-                                                                 @RequestBody ProdutoModelResquest produtoModelResquest) {
-
-        ProdutoDomainRequest novoProdutoDomain = ProdutoMapperRequest.toDomainAtualizado(produtoModelResquest);
-        ProdutoDomainResponse produtoAtualizado = produtoUseCase.atualizarTodosOsDadosProduto(idProduto, novoProdutoDomain);
-        ProdutoModelResponse produtoModelAtualizado = ProdutoMapperResponse.toModel(produtoAtualizado);
-
-        return ResponseEntity.ok(produtoModelAtualizado);
     }
 
     @PatchMapping("/{id}")
@@ -64,7 +53,7 @@ public class ProdutoController {
                                                                         @RequestBody Map<String, Object> camposProduto) {
 
         ProdutoDomainResponse produtoAtualizado = produtoUseCase.atualizarParcialmenteProduto(idProduto, camposProduto);
-        ProdutoModelResponse produtoModelAtualizado = ProdutoMapperResponse.toModel(produtoAtualizado);
+        ProdutoModelResponse produtoModelAtualizado = ProdutoMapperEntrypointResponse.toModel(produtoAtualizado);
 
         return ResponseEntity.ok(produtoModelAtualizado);
     }

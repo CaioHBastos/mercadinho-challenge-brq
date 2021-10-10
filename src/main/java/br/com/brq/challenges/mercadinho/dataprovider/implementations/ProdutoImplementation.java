@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Classe responsável por implementar o contrato com os métodos da produto e com isso
@@ -45,23 +44,16 @@ public class ProdutoImplementation implements ProdutoGateway {
 
     @Override
     public ProdutoDomainResponse buscarProdutoPorId(Long idProduto) {
-        Optional<ProdutoEntity> produtoEntity = produtoRepository.findById(idProduto);
-        return ProdutoMapperResponse.toDomain(produtoEntity.get());
+        ProdutoEntity produtoEntity = produtoRepository.findById(idProduto)
+                .orElse(ProdutoEntity.builder().build());;
+        return ProdutoMapperResponse.toDomain(produtoEntity);
     }
 
     @Transactional
     @Override
     public void removerProdutoPorId(Long idProduto) {
         produtoRepository.deleteById(idProduto);
-    }
-
-    @Transactional
-    @Override
-    public ProdutoDomainResponse atualizarTodosOsDadosProduto(ProdutoDomainResponse produtoAtual) {
-        ProdutoEntity novoProdutoAtualizado = ProdutoMapperDataproviderRequest.toEntityAtualizado(produtoAtual);
-        ProdutoEntity produtoAtualizadoSalvo = produtoRepository.save(novoProdutoAtualizado);
-
-        return ProdutoMapperResponse.toDomain(produtoAtualizadoSalvo);
+        produtoRepository.flush();
     }
 
     @Override

@@ -27,15 +27,6 @@ public class CategoriaImplementation implements CategoriaGateway {
 
     private final CategoriaRepository categoriaRepository;
 
-    @Transactional
-    @Override
-    public CategoriaDomainResponse cadastrarCategoria(CategoriaDomainRequest categoriaDomainRequest) {
-        CategoriaEntity novaCategoria = CategoriaMapperDataproviderRequest.toEntity(categoriaDomainRequest);
-        CategoriaEntity categoriaSalva = categoriaRepository.save(novaCategoria);
-
-        return CategoriaMapperResponse.toDomain(categoriaSalva);
-    }
-
     @Override
     public List<CategoriaDomainResponse> buscarCategorias() {
         List<CategoriaEntity> categoriasEntity = categoriaRepository.findAll();
@@ -53,8 +44,18 @@ public class CategoriaImplementation implements CategoriaGateway {
 
     @Transactional
     @Override
+    public CategoriaDomainResponse cadastrarCategoria(CategoriaDomainRequest categoriaDomainRequest) {
+        CategoriaEntity novaCategoria = CategoriaMapperDataproviderRequest.toEntity(categoriaDomainRequest);
+        CategoriaEntity categoriaSalva = categoriaRepository.save(novaCategoria);
+
+        return CategoriaMapperResponse.toDomain(categoriaSalva);
+    }
+
+    @Transactional
+    @Override
     public void removerCategoriaPorId(Long idCategoria) {
         categoriaRepository.deleteById(idCategoria);
+        categoriaRepository.flush();
     }
 
     @Transactional

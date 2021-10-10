@@ -15,8 +15,6 @@ public interface ProdutoGateway {
 
     void removerProdutoPorId(Long idProduto);
 
-    ProdutoDomainResponse atualizarTodosOsDadosProduto(ProdutoDomainResponse produtoAtual);
-
     ProdutoDomainResponse atualizarParcialmenteOsDadosProduto(ProdutoDomainResponse produtoAtual);
 
     List<ProdutoDomainResponse> buscarProdutoPorCategoria(String nomeCategoria);

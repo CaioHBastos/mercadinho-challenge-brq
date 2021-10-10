@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class CategoriaMapperResponse {
+public class CategoriaMapperEntrypointResponse {
 
-    private CategoriaMapperResponse() {}
+    private CategoriaMapperEntrypointResponse() {}
 
     public static List<CategoriaModelResponse> toCollectionModel(List<CategoriaDomainResponse> categoriasDomain) {
         return categoriasDomain.stream()
-                .map(CategoriaMapperResponse::toModel)
+                .map(CategoriaMapperEntrypointResponse::toModel)
                 .collect(Collectors.toList());
     }
 

@@ -3,9 +3,9 @@ package br.com.brq.challenges.mercadinho.entrypoint.mapper.request;
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoModelResquest;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
 
-public class ProdutoMapperRequest {
+public class ProdutoMapperEntrypointRequest {
 
-    private ProdutoMapperRequest() {}
+    private ProdutoMapperEntrypointRequest() {}
 
     public static ProdutoDomainRequest toDomainCadastro(ProdutoModelResquest produtoModelResquest) {
         return ProdutoDomainRequest.builder()
@@ -16,8 +16,8 @@ public class ProdutoMapperRequest {
                 .preco(produtoModelResquest.getPreco())
                 .ativo(Boolean.TRUE)
                 .ofertado(Boolean.FALSE)
-                .porcentagemOferta(0)
-                .categoria(CategoriaMapperRequest.toDomainId(produtoModelResquest.getCategoria()))
+                .porcentagem(0)
+                .categoria(CategoriaMapperEntrypointRequest.toDomainId(produtoModelResquest.getCategoria()))
                 .build();
     }
 
@@ -30,8 +30,8 @@ public class ProdutoMapperRequest {
                 .preco(produtoModelResquest.getPreco())
                 .ativo(produtoModelResquest.getAtivo())
                 .ofertado(produtoModelResquest.getOfertado())
-                .porcentagemOferta(produtoModelResquest.getPorcentagemOferta())
-                .categoria(CategoriaMapperRequest.toDomainId(produtoModelResquest.getCategoria()))
+                .porcentagem(produtoModelResquest.getPorcentagem())
+                .categoria(CategoriaMapperEntrypointRequest.toDomainId(produtoModelResquest.getCategoria()))
                 .build();
     }
 }
