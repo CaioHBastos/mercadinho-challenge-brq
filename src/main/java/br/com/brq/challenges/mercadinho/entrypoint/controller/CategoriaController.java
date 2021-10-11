@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static br.com.brq.challenges.mercadinho.entrypoint.controller.UrlApiConstants.URL_CATEGORIAS_BASE;
+import static br.com.brq.challenges.mercadinho.entrypoint.controller.UrlApiConstants.URL_CATEGORIAS_ID;
+
 /**
  * Classe responsável por ser a controladora do recurso de Categorias, onde contém
  * os endpoins e métodos https.
@@ -22,7 +25,7 @@ import java.util.List;
  */
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = UrlApiConstants.URL_CATEGORIAS_BASE)
+@RequestMapping(value = URL_CATEGORIAS_BASE)
 public class CategoriaController {
 
     private final CategoriaUseCase categoriaUseCase;
@@ -59,7 +62,7 @@ public class CategoriaController {
      * @return {@code ResponseEntity<CategoriaModelResponse>}
      *      - A aplicação devolve como resposta um singleton do recurso na busca com o status de sucesso.
      */
-    @GetMapping(UrlApiConstants.URL_CATEGORIAS_ID)
+    @GetMapping(URL_CATEGORIAS_ID)
     public ResponseEntity<CategoriaModelResponse> buscarPorId(@PathVariable("id") Long idCategoria) {
         CategoriaDomainResponse categoriaDomainResponse = categoriaUseCase.buscarCategoriaPorId(idCategoria);
         CategoriaModelResponse categoriaModelResponse = CategoriaMapperEntrypointResponse.toModel(categoriaDomainResponse);
@@ -100,7 +103,7 @@ public class CategoriaController {
      *      - A aplicação devolve como resposta um singleton do recurso que está sendo atualizado
      *      com o status de sucesso.
      */
-    @PutMapping(UrlApiConstants.URL_CATEGORIAS_ID)
+    @PutMapping(URL_CATEGORIAS_ID)
     public ResponseEntity<CategoriaModelResponse> atualizar(@PathVariable("id") Long idCategoria,
                                                             @RequestBody CategoriaModelRequest categoriaModelRequest) {
         CategoriaDomainRequest categoriaDomainNova = CategoriaMapperEntrypointRequest.toDomain(categoriaModelRequest);
@@ -120,7 +123,7 @@ public class CategoriaController {
      * @return {@code ResponseEntity<Void>}
      *      - A devolve em caso de sucesso da remoção do recurso que não existe mais conteúdo.
      */
-    @DeleteMapping(UrlApiConstants.URL_CATEGORIAS_ID)
+    @DeleteMapping(URL_CATEGORIAS_ID)
     public ResponseEntity<Void> removerPorId(@PathVariable("id") Long idCategoria) {
         categoriaUseCase.removerCategoriaPorId(idCategoria);
 

@@ -37,11 +37,6 @@ public class HandlerAdviceException extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(httpStatus).body(mensagemException);
     }
 
-    @ExceptionHandler(SemConteudoException.class)
-    public final ResponseEntity<?> handlerSemConteudo(Exception exception) {
-        return ResponseEntity.noContent().build();
-    }
-
     @ExceptionHandler(BadRequestPostException.class)
     public final ResponseEntity<?> handlerBadRequestPost(Exception exception) {
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
