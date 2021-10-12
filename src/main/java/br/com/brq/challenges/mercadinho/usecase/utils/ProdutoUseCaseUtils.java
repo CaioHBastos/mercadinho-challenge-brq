@@ -8,6 +8,9 @@ import br.com.brq.challenges.mercadinho.usecase.exception.ProdutoNaoEncontradoEx
 
 import java.util.Objects;
 
+import static java.lang.String.*;
+import static java.util.Objects.nonNull;
+
 public final class ProdutoUseCaseUtils {
 
     private static final String MENSAGEM_PRODUTO_NAO_EXISTE = "O produto de id %s informado, não existe.";
@@ -15,14 +18,14 @@ public final class ProdutoUseCaseUtils {
     private static final String MENSAGEM_PRODUTO_NAO_PODE_CADASTRAR = "Um produto não pode ser cadastrado com a quantidade %s.";
     private static final String MENSAGEM_PRODUTO_OFERTADO_PORCENTAGEM = "O produto '%s' não pode ser ofertado com a porcentagem igual a 0.";
     private static final String MENSAGEM_PRODUTO_ATIVO_QUANTIDADE_ZERO = "O produto '%s' não pode ser ativado porque está com a quantidade 0";
+    private static final String MENSAGEM_PRODUTO_OFERTADO_ATIVO = "O produto '%s' não pode ser ofertado, porque ele está inativo no momento.";
 
     private ProdutoUseCaseUtils() {}
 
     public static void verificarSeProdutoExiste(Long idProduto, ProdutoDomainResponse produto) {
 
         if (Objects.isNull(produto.getId())) {
-            throw new ProdutoNaoEncontradoException(
-                    String.format(MENSAGEM_PRODUTO_NAO_EXISTE, idProduto));
+            throw new ProdutoNaoEncontradoException(format(MENSAGEM_PRODUTO_NAO_EXISTE, idProduto));
         }
     }
 
@@ -30,15 +33,14 @@ public final class ProdutoUseCaseUtils {
                                                                CategoriaDomainResponse categoriaDomainResponse) {
 
         if (Objects.isNull(categoriaDomainResponse.getId())) {
-            throw new BadRequestPostException(String.format(MENSAGEM_NAO_EXISTE_CADASTRO_PRODUTO, idCategoria));
+            throw new BadRequestPostException(format(MENSAGEM_NAO_EXISTE_CADASTRO_PRODUTO, idCategoria));
         }
     }
 
     public static void verificarSeQuantidadeProdutoEstaZero(Integer quantidadeProduto) {
 
         if (verificarSeValorIgualAZero(quantidadeProduto)) {
-            throw new BadBusyException(
-                    String.format(MENSAGEM_PRODUTO_NAO_PODE_CADASTRAR, quantidadeProduto));
+            throw new BadBusyException(format(MENSAGEM_PRODUTO_NAO_PODE_CADASTRAR, quantidadeProduto));
         }
     }
 
@@ -46,7 +48,7 @@ public final class ProdutoUseCaseUtils {
                                                                                 ProdutoDomainResponse produtoAtual) {
         if (verificarSeValorIgualAZero(porcentagem)) {
             if (produtoEstaOferta(ofertado)) {
-                throw new BadBusyException(String.format(MENSAGEM_PRODUTO_OFERTADO_PORCENTAGEM, produtoAtual.getNome()));
+                throw new BadBusyException(format(MENSAGEM_PRODUTO_OFERTADO_PORCENTAGEM, produtoAtual.getNome()));
             }
         }
     }
@@ -55,8 +57,7 @@ public final class ProdutoUseCaseUtils {
 
         if (verificarSeValorIgualAZero(produtoAtual.getQuantidade())) {
             if (produtoEstaAtivo(produtoAtivo)) {
-                throw new BadBusyException(
-                        String.format(MENSAGEM_PRODUTO_ATIVO_QUANTIDADE_ZERO, produtoAtual.getNome()));
+                throw new BadBusyException(format(MENSAGEM_PRODUTO_ATIVO_QUANTIDADE_ZERO, produtoAtual.getNome()));
             }
         }
     }
@@ -64,7 +65,7 @@ public final class ProdutoUseCaseUtils {
     public static void verificarSeProdutoOfertaEProdutoPorcentagemNaoEstaNulo(ProdutoDomainResponse produtoOrigem,
                                                                         ProdutoDomainResponse produtoAtual) {
 
-        if (Objects.nonNull(produtoOrigem.getOfertado()) && Objects.nonNull(produtoOrigem.getPorcentagem())) {
+        if (nonNull(produtoOrigem.getOfertado()) && nonNull(produtoOrigem.getPorcentagem())) {
             vetificarSePorcentagemOfertEstaDiferenteDeZeroParaAtivarOferta(produtoOrigem.getPorcentagem(),
                     produtoOrigem.getOfertado(), produtoAtual);
         }
@@ -73,8 +74,19 @@ public final class ProdutoUseCaseUtils {
     public static void verificarSeProdutoAtivoNaoEstaNuloParaVerificarQuantidade(ProdutoDomainResponse produtoOrigem,
                                                                            ProdutoDomainResponse produtoAtual) {
 
-        if (Objects.nonNull(produtoOrigem.getAtivo())) {
+        if (nonNull(produtoOrigem.getAtivo())) {
             verificarQuantidadeProdutoParaAtivar(produtoAtual, produtoOrigem.getAtivo());
+        }
+    }
+
+    public static void vetificarSeProdutoEstaAtivoEPodeSerOfertado(ProdutoDomainResponse produtoOrigem, ProdutoDomainResponse produtoAtual) {
+
+        if (nonNull(produtoOrigem.getOfertado())) {
+            if (produtoAtualNaoEstaAtivo(produtoAtual.getAtivo())) {
+                if (produtoOrigemNaoEstaAtivo(produtoOrigem.getAtivo())) {
+                    throw new BadBusyException(format(MENSAGEM_PRODUTO_OFERTADO_ATIVO, produtoAtual.getNome()));
+                }
+            }
         }
     }
 
@@ -88,5 +100,13 @@ public final class ProdutoUseCaseUtils {
 
     private static boolean produtoEstaAtivo(Boolean estaAtivo) {
         return estaAtivo;
+    }
+
+    private static boolean produtoAtualNaoEstaAtivo(Boolean estaAtivo) {
+        return !estaAtivo;
+    }
+
+    private static boolean produtoOrigemNaoEstaAtivo(Boolean estaAtivo) {
+        return estaAtivo == null || !estaAtivo;
     }
 }
