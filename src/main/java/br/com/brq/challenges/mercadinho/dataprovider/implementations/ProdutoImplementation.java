@@ -8,10 +8,10 @@ import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequ
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
 import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * Classe responsável por implementar o contrato com os métodos da produto e com isso
@@ -37,8 +37,8 @@ public class ProdutoImplementation implements ProdutoGateway {
     }
 
     @Override
-    public List<ProdutoDomainResponse> buscarTodosProdutos() {
-        List<ProdutoEntity> produtosEntity = produtoRepository.findAll();
+    public Page<ProdutoDomainResponse> buscarTodosProdutos(Pageable pageable) {
+        Page<ProdutoEntity> produtosEntity = produtoRepository.findAll(pageable);
         return ProdutoMapperResponse.toCollectionDomain(produtosEntity);
     }
 
@@ -65,15 +65,15 @@ public class ProdutoImplementation implements ProdutoGateway {
     }
 
     @Override
-    public List<ProdutoDomainResponse> buscarProdutoPorCategoria(String nomeCategoria) {
-        List<ProdutoEntity> produtosPorCategoria = produtoRepository.findByCategoriaNome(nomeCategoria);
+    public Page<ProdutoDomainResponse> buscarProdutoPorCategoria(Pageable pageable, String nomeCategoria) {
+        Page<ProdutoEntity> produtosPorCategoria = produtoRepository.findByCategoriaNome(pageable, nomeCategoria);
 
         return ProdutoMapperResponse.toCollectionDomain(produtosPorCategoria);
     }
 
     @Override
-    public List<ProdutoDomainResponse> buscarProdutoPorMarca(String marca) {
-        List<ProdutoEntity> produtosPorMarca = produtoRepository.findByMarcaContaining(marca);
+    public Page<ProdutoDomainResponse> buscarProdutoPorMarca(Pageable pageable, String marca) {
+        Page<ProdutoEntity> produtosPorMarca = produtoRepository.findByMarcaContaining(pageable, marca);
 
         return ProdutoMapperResponse.toCollectionDomain(produtosPorMarca);
     }

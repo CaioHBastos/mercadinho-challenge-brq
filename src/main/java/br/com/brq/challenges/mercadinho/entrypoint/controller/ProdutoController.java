@@ -9,6 +9,8 @@ import br.com.brq.challenges.mercadinho.usecase.ProdutoUseCase;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,21 +41,21 @@ public class ProdutoController {
      * @param produtoParametroModelRequest {@Code ProdutoParametroModelRequest}
      *      - Objeto no qual contém os parâmetros que são opcionais para o filtro na busca.
      *
-     * @return {@code ResponseEntity<List<ProdutoModelResponse>>}
+     * @return {@code ResponseEntity<Page<ProdutoModelResponse>>}
      *      - Caso tenha informações de produtos na base dados, a aplicação
-     *      irá devolver uma lista de entidades de produtos com sucesso.
+     *      irá devolver uma lista paginada de entidades de produtos com sucesso.
      *      - Caso não tenha produtos cadastrado, irá ser apresentado
      *      que não existe conteúdo para o recurso de produtos.
      */
     @GetMapping
-    public ResponseEntity<List<ProdutoModelResponse>> buscarTodos(ProdutoParametroModelRequest produtoParametroModelRequest) {
-        List<ProdutoDomainResponse> produtosDomain = produtoUseCase.buscarTodosProdutos(produtoParametroModelRequest);
+    public ResponseEntity<Page<ProdutoModelResponse>> buscarTodos(Pageable pageable, ProdutoParametroModelRequest produtoParametroModelRequest) {
+        Page<ProdutoDomainResponse> produtosDomain = produtoUseCase.buscarTodosProdutos(pageable, produtoParametroModelRequest);
 
         if (produtosDomain.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        List<ProdutoModelResponse> produtosModel = ProdutoMapperEntrypointResponse.toCollectionModel(produtosDomain);
+        Page<ProdutoModelResponse> produtosModel = ProdutoMapperEntrypointResponse.toCollectionModel(produtosDomain);
 
         return ResponseEntity.ok(produtosModel);
     }

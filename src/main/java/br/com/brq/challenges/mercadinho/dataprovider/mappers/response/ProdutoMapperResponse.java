@@ -2,18 +2,14 @@ package br.com.brq.challenges.mercadinho.dataprovider.mappers.response;
 
 import br.com.brq.challenges.mercadinho.dataprovider.entities.ProdutoEntity;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 public class ProdutoMapperResponse {
 
     private ProdutoMapperResponse() {}
 
-    public static List<ProdutoDomainResponse> toCollectionDomain(List<ProdutoEntity> produtosEntity) {
-        return produtosEntity.stream()
-                .map(ProdutoMapperResponse::toDomain)
-                .collect(Collectors.toList());
+    public static Page<ProdutoDomainResponse> toCollectionDomain(Page<ProdutoEntity> produtosEntity) {
+        return produtosEntity.map(ProdutoMapperResponse::toDomain);
     }
 
     public static ProdutoDomainResponse toDomain(ProdutoEntity produtoSalvo) {

@@ -1,15 +1,14 @@
 package br.com.brq.challenges.mercadinho.dataprovider.repositories;
 
 import br.com.brq.challenges.mercadinho.dataprovider.entities.ProdutoEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long> {
-    List<ProdutoEntity> findByCategoriaNome(String nomeCategoria);
+    Page<ProdutoEntity> findByCategoriaNome(Pageable pageable, String nomeCategoria);
 
-    List<ProdutoEntity> findByMarcaContaining(String marca);
+    Page<ProdutoEntity> findByMarcaContaining(Pageable pageable, String marca);
 }

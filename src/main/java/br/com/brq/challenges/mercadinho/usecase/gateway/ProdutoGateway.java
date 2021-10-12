@@ -2,14 +2,14 @@ package br.com.brq.challenges.mercadinho.usecase.gateway;
 
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ProdutoGateway {
 
     ProdutoDomainResponse cadastrarProduto(ProdutoDomainRequest produtoDomainRequest);
 
-    List<ProdutoDomainResponse> buscarTodosProdutos();
+    Page<ProdutoDomainResponse> buscarTodosProdutos(Pageable pageable);
 
     ProdutoDomainResponse buscarProdutoPorId(Long idProduto);
 
@@ -17,7 +17,7 @@ public interface ProdutoGateway {
 
     ProdutoDomainResponse atualizarParcialmenteOsDadosProduto(ProdutoDomainResponse produtoAtual);
 
-    List<ProdutoDomainResponse> buscarProdutoPorCategoria(String nomeCategoria);
+    Page<ProdutoDomainResponse> buscarProdutoPorCategoria(Pageable pageable, String nomeCategoria);
 
-    List<ProdutoDomainResponse> buscarProdutoPorMarca(String marca);
+    Page<ProdutoDomainResponse> buscarProdutoPorMarca(Pageable pageable, String marca);
 }

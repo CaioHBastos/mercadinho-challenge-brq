@@ -4,17 +4,17 @@ import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoParametr
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainResponse;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
-import br.com.brq.challenges.mercadinho.usecase.exception.BadBusyException;
 import br.com.brq.challenges.mercadinho.usecase.gateway.CategoriaGateway;
 import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -28,17 +28,17 @@ public class ProdutoUseCase {
     private final CategoriaGateway categoriaGateway;
 
     //TODO REMOVER OS IFS EM OUTRO MOMENTO
-    public List<ProdutoDomainResponse> buscarTodosProdutos(ProdutoParametroModelRequest produtoParametroModelRequest) {
+    public Page<ProdutoDomainResponse> buscarTodosProdutos(Pageable pageable, ProdutoParametroModelRequest produtoParametroModelRequest) {
 
         if (StringUtils.isNotBlank(produtoParametroModelRequest.getNomeCategoria())) {
-            return produtoGateway.buscarProdutoPorCategoria(produtoParametroModelRequest.getNomeCategoria());
+            return produtoGateway.buscarProdutoPorCategoria(pageable, produtoParametroModelRequest.getNomeCategoria());
         }
 
         if (StringUtils.isNotBlank(produtoParametroModelRequest.getMarca())) {
-            return produtoGateway.buscarProdutoPorMarca(produtoParametroModelRequest.getMarca());
+            return produtoGateway.buscarProdutoPorMarca(pageable, produtoParametroModelRequest.getMarca());
         }
 
-        return produtoGateway.buscarTodosProdutos();
+        return produtoGateway.buscarTodosProdutos(pageable);
     }
 
     /**
