@@ -5,6 +5,7 @@ import br.com.brq.challenges.mercadinho.entrypoint.mapper.response.ProdutoMapper
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoModelResquest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoParametroModelRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoModelResponse;
+import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoResumidoModelResponse;
 import br.com.brq.challenges.mercadinho.usecase.ProdutoUseCase;
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
@@ -15,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 import static br.com.brq.challenges.mercadinho.entrypoint.controller.UrlApiConstants.URL_PRODUTOS_BASE;
@@ -41,21 +41,21 @@ public class ProdutoController {
      * @param produtoParametroModelRequest {@Code ProdutoParametroModelRequest}
      *      - Objeto no qual contém os parâmetros que são opcionais para o filtro na busca.
      *
-     * @return {@code ResponseEntity<Page<ProdutoModelResponse>>}
+     * @return {@code ResponseEntity<Page<ProdutoResumidoModelResponse>>}
      *      - Caso tenha informações de produtos na base dados, a aplicação
      *      irá devolver uma lista paginada de entidades de produtos com sucesso.
      *      - Caso não tenha produtos cadastrado, irá ser apresentado
      *      que não existe conteúdo para o recurso de produtos.
      */
     @GetMapping
-    public ResponseEntity<Page<ProdutoModelResponse>> buscarTodos(Pageable pageable, ProdutoParametroModelRequest produtoParametroModelRequest) {
+    public ResponseEntity<Page<ProdutoResumidoModelResponse>> buscarTodos(Pageable pageable, ProdutoParametroModelRequest produtoParametroModelRequest) {
         Page<ProdutoDomainResponse> produtosDomain = produtoUseCase.buscarTodosProdutos(pageable, produtoParametroModelRequest);
 
         if (produtosDomain.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        Page<ProdutoModelResponse> produtosModel = ProdutoMapperEntrypointResponse.toCollectionModel(produtosDomain);
+        Page<ProdutoResumidoModelResponse> produtosModel = ProdutoMapperEntrypointResponse.toCollectionModelResumido(produtosDomain);
 
         return ResponseEntity.ok(produtosModel);
     }
@@ -71,8 +71,8 @@ public class ProdutoController {
      *      - A aplicação devolve como resposta um singleton do recurso na busca com o status de sucesso.
      */
     @GetMapping(URL_PRODUTOS_ID)
-    public ResponseEntity<ProdutoModelResponse> buscarPorId(@PathVariable("id") Long idProduto) {
-        ProdutoDomainResponse produtoDomain = produtoUseCase.buscarProdutoPorId(idProduto);
+    public ResponseEntity<ProdutoModelResponse> buscarPorId(@PathVariable("id") Long idProduto, @RequestParam(required = false) String expand) {
+        ProdutoDomainResponse produtoDomain = produtoUseCase.buscarProdutoPorId(idProduto, expand);
         ProdutoModelResponse produtoModel = ProdutoMapperEntrypointResponse.toModel(produtoDomain);
 
         return ResponseEntity.ok(produtoModel);

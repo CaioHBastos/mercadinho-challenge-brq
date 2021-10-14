@@ -48,11 +48,15 @@ public class ProdutoUseCase {
      *
      * @param idProduto {@code Long}
      *      - Id do recurso do produto para a busca dos dados.
+     * @param expand {@code String}
+     *      - Expand para definir se retorna o payload da tabela nutricional. Se for informado,
+     *      ira retornar as informaçoes..
      *
+     * @param expand
      * @return {@code ProdutoDomainResponse}
      *      - Retorna os dados de informação do dominio do produto após a busca.
      */
-    public ProdutoDomainResponse buscarProdutoPorId(Long idProduto) {
+    public ProdutoDomainResponse buscarProdutoPorId(Long idProduto, String expand) {
 
         ProdutoDomainResponse produto = produtoGateway.buscarProdutoPorId(idProduto);
         verificarSeProdutoExiste(idProduto, produto);
@@ -73,12 +77,12 @@ public class ProdutoUseCase {
     }
 
     public void removerProdutoPorId(Long idProduto) {
-        buscarProdutoPorId(idProduto);
+        buscarProdutoPorId(idProduto, null);
         produtoGateway.removerProdutoPorId(idProduto);
     }
 
     public ProdutoDomainResponse atualizarParcialmenteProduto(Long idProduto, Map<String, Object> novosCampoProduto) {
-        ProdutoDomainResponse produtoAtual = buscarProdutoPorId(idProduto);
+        ProdutoDomainResponse produtoAtual = buscarProdutoPorId(idProduto, null);
         atualizarCamposProduto(novosCampoProduto, produtoAtual);
 
         return produtoGateway.atualizarParcialmenteOsDadosProduto(produtoAtual);

@@ -18,20 +18,7 @@ public class ProdutoMapperEntrypointRequest {
                 .ofertado(Boolean.FALSE)
                 .porcentagem(0)
                 .categoria(CategoriaMapperEntrypointRequest.toDomainId(produtoModelResquest.getCategoria()))
-                .build();
-    }
-
-    public static ProdutoDomainRequest toDomainAtualizado(ProdutoModelResquest produtoModelResquest) {
-        return ProdutoDomainRequest.builder()
-                .nome(produtoModelResquest.getNome())
-                .descricao(produtoModelResquest.getDescricao())
-                .marca(produtoModelResquest.getMarca())
-                .quantidade(produtoModelResquest.getQuantidade())
-                .preco(produtoModelResquest.getPreco())
-                .ativo(produtoModelResquest.getAtivo())
-                .ofertado(produtoModelResquest.getOfertado())
-                .porcentagem(produtoModelResquest.getPorcentagem())
-                .categoria(CategoriaMapperEntrypointRequest.toDomainId(produtoModelResquest.getCategoria()))
+                .tabelaNutricional(TabelaNutricionalEntrypointRequest.toDomain(produtoModelResquest.getTabelaNutricional()))
                 .build();
     }
 }

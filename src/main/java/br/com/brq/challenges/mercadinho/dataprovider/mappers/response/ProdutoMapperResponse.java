@@ -24,6 +24,7 @@ public class ProdutoMapperResponse {
                 .ofertado(produtoSalvo.getOfertado())
                 .porcentagem(produtoSalvo.getPorcentagemOfertado())
                 .categoria(CategoriaMapperResponse.toDomain(produtoSalvo.getCategoria()))
+                .tabela_nutricional(TabelaNutricionalMapperResponse.toDomain(produtoSalvo.getTabelaNutricional()))
                 .build();
     }
 }
