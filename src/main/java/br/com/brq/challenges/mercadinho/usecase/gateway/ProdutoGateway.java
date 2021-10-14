@@ -11,7 +11,7 @@ public interface ProdutoGateway {
 
     Page<ProdutoDomainResponse> buscarTodosProdutos(Pageable pageable);
 
-    ProdutoDomainResponse buscarProdutoPorId(Long idProduto);
+    ProdutoDomainResponse buscarProdutoPorId(Long idProduto, String expand);
 
     void removerProdutoPorId(Long idProduto);
 

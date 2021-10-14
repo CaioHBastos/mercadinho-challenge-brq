@@ -27,4 +27,20 @@ public class ProdutoMapperResponse {
                 .tabela_nutricional(TabelaNutricionalMapperResponse.toDomain(produtoSalvo.getTabelaNutricional()))
                 .build();
     }
+
+    public static ProdutoDomainResponse toDomainWithExpand(ProdutoEntity produtoEntity, String expand) {
+        return ProdutoDomainResponse.builder()
+                .id(produtoEntity.getId())
+                .nome(produtoEntity.getNome())
+                .descricao(produtoEntity.getDescricao())
+                .marca(produtoEntity.getMarca())
+                .quantidade(produtoEntity.getQuantidade())
+                .preco(produtoEntity.getPreco())
+                .ativo(produtoEntity.getAtivo())
+                .ofertado(produtoEntity.getOfertado())
+                .porcentagem(produtoEntity.getPorcentagemOfertado())
+                .categoria(CategoriaMapperResponse.toDomain(produtoEntity.getCategoria()))
+                .tabela_nutricional(TabelaNutricionalMapperResponse.toDomainWithExpand(produtoEntity.getTabelaNutricional(), expand))
+                .build();
+    }
 }

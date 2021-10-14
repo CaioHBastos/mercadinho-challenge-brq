@@ -43,10 +43,11 @@ public class ProdutoImplementation implements ProdutoGateway {
     }
 
     @Override
-    public ProdutoDomainResponse buscarProdutoPorId(Long idProduto) {
+    public ProdutoDomainResponse buscarProdutoPorId(Long idProduto, String expand) {
         ProdutoEntity produtoEntity = produtoRepository.findById(idProduto)
-                .orElse(ProdutoEntity.builder().build());;
-        return ProdutoMapperResponse.toDomain(produtoEntity);
+                .orElse(ProdutoEntity.builder().build());
+
+        return ProdutoMapperResponse.toDomainWithExpand(produtoEntity, expand);
     }
 
     @Transactional
