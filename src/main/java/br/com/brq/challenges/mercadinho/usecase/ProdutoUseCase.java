@@ -4,7 +4,6 @@ import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoParametr
 import br.com.brq.challenges.mercadinho.usecase.domain.request.ProdutoDomainRequest;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.CategoriaDomainResponse;
 import br.com.brq.challenges.mercadinho.usecase.domain.response.ProdutoDomainResponse;
-import br.com.brq.challenges.mercadinho.usecase.exception.BadBusyException;
 import br.com.brq.challenges.mercadinho.usecase.gateway.CategoriaGateway;
 import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;

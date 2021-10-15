@@ -12,10 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
-import static br.com.brq.challenges.mercadinho.entrypoint.controller.UrlApiConstants.URL_CATEGORIAS_BASE;
-import static br.com.brq.challenges.mercadinho.entrypoint.controller.UrlApiConstants.URL_CATEGORIAS_ID;
+import static br.com.brq.challenges.mercadinho.entrypoint.controller.constants.UrlApiConstants.URL_CATEGORIAS_BASE;
+import static br.com.brq.challenges.mercadinho.entrypoint.controller.constants.UrlApiConstants.URL_CATEGORIAS_ID;
 
 /**
  * Classe responsável por ser a controladora do recurso de Categorias, onde contém
@@ -81,7 +82,7 @@ public class CategoriaController {
      *      - A aplicação devolve como resposta uma entidade criada de categoria.
      */
     @PostMapping
-    public ResponseEntity<CategoriaModelResponse> adicionar(@RequestBody CategoriaModelRequest categoriaModelRequest) {
+    public ResponseEntity<CategoriaModelResponse> adicionar(@RequestBody @Valid CategoriaModelRequest categoriaModelRequest) {
         CategoriaDomainRequest categoriaDomainRequest = CategoriaMapperEntrypointRequest.toDomain(categoriaModelRequest);
         CategoriaDomainResponse categoriaDomainResponse = categoriaUseCase.cadastrarCategoria(categoriaDomainRequest);
         CategoriaModelResponse categoriaModelResponse = CategoriaMapperEntrypointResponse.toModel(categoriaDomainResponse);
@@ -105,7 +106,7 @@ public class CategoriaController {
      */
     @PutMapping(URL_CATEGORIAS_ID)
     public ResponseEntity<CategoriaModelResponse> atualizar(@PathVariable("id") Long idCategoria,
-                                                            @RequestBody CategoriaModelRequest categoriaModelRequest) {
+                                                            @RequestBody @Valid CategoriaModelRequest categoriaModelRequest) {
         CategoriaDomainRequest categoriaDomainNova = CategoriaMapperEntrypointRequest.toDomain(categoriaModelRequest);
         CategoriaDomainResponse categoriaDomainAtualizada = categoriaUseCase.atualizarCategoria(idCategoria, categoriaDomainNova);
         CategoriaModelResponse categoriaModelSalva = CategoriaMapperEntrypointResponse.toModel(categoriaDomainAtualizada);

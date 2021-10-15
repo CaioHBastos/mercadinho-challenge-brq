@@ -16,10 +16,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
-import static br.com.brq.challenges.mercadinho.entrypoint.controller.UrlApiConstants.URL_PRODUTOS_BASE;
-import static br.com.brq.challenges.mercadinho.entrypoint.controller.UrlApiConstants.URL_PRODUTOS_ID;
+import static br.com.brq.challenges.mercadinho.entrypoint.controller.constants.UrlApiConstants.URL_PRODUTOS_BASE;
+import static br.com.brq.challenges.mercadinho.entrypoint.controller.constants.UrlApiConstants.URL_PRODUTOS_ID;
 
 /**
  * Classe responsável por ser a controladora do recurso de Produtos, onde contém
@@ -71,7 +72,9 @@ public class ProdutoController {
      *      - A aplicação devolve como resposta um singleton do recurso na busca com o status de sucesso.
      */
     @GetMapping(URL_PRODUTOS_ID)
-    public ResponseEntity<ProdutoModelResponse> buscarPorId(@PathVariable("id") Long idProduto, @RequestParam(required = false) String expand) {
+    public ResponseEntity<ProdutoModelResponse> buscarPorId(@PathVariable("id") Long idProduto,
+                                                            @RequestParam(required = false) String expand) {
+
         ProdutoDomainResponse produtoDomain = produtoUseCase.buscarProdutoPorId(idProduto, expand);
         ProdutoModelResponse produtoModel = ProdutoMapperEntrypointResponse.toModel(produtoDomain);
 
@@ -89,7 +92,7 @@ public class ProdutoController {
      *      - A aplicação devolve como resposta uma entidade criada de produto.
      */
     @PostMapping
-    public ResponseEntity<ProdutoModelResponse> salvar(@RequestBody ProdutoModelResquest produtoModelResquest) {
+    public ResponseEntity<ProdutoModelResponse> salvar(@RequestBody @Valid ProdutoModelResquest produtoModelResquest) {
         ProdutoDomainRequest novoProdutoDomain = ProdutoMapperEntrypointRequest.toDomainCadastro(produtoModelResquest);
         ProdutoDomainResponse produtoCadastradoDomain = produtoUseCase.cadastrarProduto(novoProdutoDomain);
         ProdutoModelResponse produtoCadastradoModel = ProdutoMapperEntrypointResponse.toModel(produtoCadastradoDomain);

@@ -1,4 +1,4 @@
-package br.com.brq.challenges.mercadinho.entrypoint.controller;
+package br.com.brq.challenges.mercadinho.entrypoint.controller.constants;
 
 public final class  UrlApiConstants {
 
@@ -9,4 +9,6 @@ public final class  UrlApiConstants {
 
     public static final String URL_PRODUTOS_BASE = "/produtos";
     public static final String URL_PRODUTOS_ID = "/{id}";
+
+    public static final String URL_OFERTAS_BASE = "/ofertas";
 }

@@ -16,7 +16,7 @@ public final class ProdutoUseCaseUtils {
     private static final String MENSAGEM_PRODUTO_NAO_EXISTE = "O produto de id %s informado, não existe.";
     private static final String MENSAGEM_NAO_EXISTE_CADASTRO_PRODUTO = "A categoria com o id %s informada, não existe para continuar com o cadastro do produto.";
     private static final String MENSAGEM_PRODUTO_NAO_PODE_CADASTRAR = "Um produto não pode ser cadastrado com a quantidade %s.";
-    private static final String MENSAGEM_PRODUTO_OFERTADO_PORCENTAGEM = "O produto '%s' não pode ser ofertado com a porcentagem igual a 0.";
+    private static final String MENSAGEM_PRODUTO_OFERTADO_PORCENTAGEM = "O produto '%s' não pode ser ofertado com a porcentagem igual ou menor que 0.";
     private static final String MENSAGEM_PRODUTO_ATIVO_QUANTIDADE_ZERO = "O produto '%s' não pode ser ativado porque está com a quantidade 0";
     private static final String MENSAGEM_PRODUTO_OFERTADO_ATIVO = "O produto '%s' não pode ser ofertado, porque ele está inativo no momento.";
     private static final String MENSAGEM_PRODUTO_EXPAND_INVALIDO = "O valor do expand está incorreto, só é permitido '%s'";
@@ -55,7 +55,7 @@ public final class ProdutoUseCaseUtils {
 
     public static void vetificarSePorcentagemOfertEstaDiferenteDeZeroParaAtivarOferta(Integer porcentagem, Boolean ofertado,
                                                                                 ProdutoDomainResponse produtoAtual) {
-        if (verificarSeValorIgualAZero(porcentagem)) {
+        if (verificarSeValorIgualAZero(porcentagem) || verificarSeValorMenorZero(porcentagem)) {
             if (produtoEstaOferta(ofertado)) {
                 throw new BadBusyException(String.format(MENSAGEM_PRODUTO_OFERTADO_PORCENTAGEM, produtoAtual.getNome()));
             }
@@ -130,6 +130,10 @@ public final class ProdutoUseCaseUtils {
 
     private static boolean verificarSeValorIgualAZero(Integer valor) {
         return valor.equals(0);
+    }
+
+    private static boolean verificarSeValorMenorZero(Integer porcentagem) {
+        return porcentagem < 0;
     }
 
     private static boolean produtoEstaOferta(Boolean estaOfertado) {
