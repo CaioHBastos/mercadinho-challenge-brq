@@ -13,7 +13,9 @@ public class Produto {
     private final String descricao;
     private final String marca;
     private final Double preco;
-    private final Boolean ativo;
+
+    @Setter
+    private Boolean ativo;
 
     @Setter
     private Integer porcentagemOferta;

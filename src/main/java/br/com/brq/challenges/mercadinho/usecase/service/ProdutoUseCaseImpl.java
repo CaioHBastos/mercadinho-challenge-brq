@@ -21,6 +21,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
 
         try {
             validarCadastroProduto(produto);
+            produto.setAtivo(true);
             produto.setPorcentagemOferta(0);
 
             return produtoGateway.criarProduto(produto);
@@ -35,14 +36,15 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     private void validarCadastroProduto(Produto produto) {
         validarDuplicidade(produto);
         validarPreco(produto);
-        validarProdutoInativo(produto);
     }
 
     private void validarDuplicidade(Produto produto) {
         produtoGateway.buscarProdutoPorNome(produto.getNome())
-                .orElseThrow(() -> new CadastroRegraProdutoException(
-                        String.format("Erro ao realizar o cadastro do produto. Já existe um produto cadastrado " +
-                                "com o nome '%s'.", produto.getNome())));
+                .ifPresent(nomeProduto -> {
+                    throw new CadastroRegraProdutoException(
+                            String.format("Erro ao realizar o cadastro do produto. Já existe um produto cadastrado " +
+                                    "com o nome '%s'.", produto.getNome()));
+                });
     }
 
     private void validarPreco(Produto produto) {
@@ -51,14 +53,6 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
                     "Erro ao realizar o cadastro do produto. O produto não pode ser cadastrado com o valor menor " +
                             "ou igual zero e foi informado '%s'.", produto.getPreco()
             ));
-        }
-    }
-
-    private void validarProdutoInativo(Produto produto) {
-        if (!produto.getAtivo()) {
-            throw new CadastroRegraProdutoException(
-                    "Erro ao realizar o cadastro do produto. O produto não pode ser cadastrado inativo."
-            );
         }
     }
 }
