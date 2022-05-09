@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DepartamentoRepository extends JpaRepository<DepartamentoEntity, Long> {
 
-    DepartamentoEntity findByNome(String nome);
 }
