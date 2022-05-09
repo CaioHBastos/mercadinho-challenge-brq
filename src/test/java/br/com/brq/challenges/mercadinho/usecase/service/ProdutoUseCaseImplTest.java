@@ -5,7 +5,7 @@ import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
 import br.com.brq.challenges.mercadinho.usecase.exception.CadastroProdutoException;
 import br.com.brq.challenges.mercadinho.usecase.exception.CadastroRegraProdutoException;
 import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
-import br.com.brq.challenges.mercadinho.usecase.mock.ProdutoMock;
+import br.com.brq.challenges.mercadinho.mock.ProdutoMock;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

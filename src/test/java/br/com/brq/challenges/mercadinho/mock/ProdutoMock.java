@@ -1,4 +1,4 @@
-package br.com.brq.challenges.mercadinho.usecase.mock;
+package br.com.brq.challenges.mercadinho.mock;
 
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
 import lombok.experimental.UtilityClass;
@@ -12,6 +12,17 @@ public class ProdutoMock {
                 .descricao("Refrigerante Coca-Cola 2L em garrafa retornável")
                 .marca("Coca-Cola")
                 .preco(5.99)
+                .build();
+    }
+
+    public static Produto mockProdutoDomainRequest() {
+        return Produto.builder()
+                .nome("Refrigerante Coca-Cola 2L")
+                .descricao("Refrigerante Coca-Cola 2L em garrafa retornável")
+                .marca("Coca-Cola")
+                .preco(5.99)
+                .ativo(true)
+                .porcentagemOferta(0)
                 .build();
     }
 
