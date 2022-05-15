@@ -1,7 +1,9 @@
 package br.com.brq.challenges.mercadinho.dataprovider.mapper.response;
 
 import br.com.brq.challenges.mercadinho.annotations.Unitario;
-import br.com.brq.challenges.mercadinho.mock.DepartamentoMock;
+import br.com.brq.challenges.mercadinho.dataprovider.entities.DepartamentoEntity;
+import br.com.brq.challenges.mercadinho.mock.DepartamentoEntityMock;
+import br.com.brq.challenges.mercadinho.usecase.domain.Departamento;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,7 @@ public class DepartamentoDataproviderMapperResponseTest {
         @DisplayName("Converter uma lista de entidades de departamentos para uma lista de domínios com sucesso para departamentos")
         @Test
         void testConvertSucesso() {
-            final var departamentos = DepartamentoMock.mockDepartamentosResponse();
+            final var departamentos = DepartamentoEntityMock.mockDepartamentosResponse();
 
             final var departamentosEntity = DepartamentoDataproviderMapperResponse.convert(departamentos);
 
@@ -44,18 +46,27 @@ public class DepartamentoDataproviderMapperResponseTest {
     @Nested
     class DepartamentoDataproviderMapperResponseConvertDepartamentoTest {
 
-        @DisplayName("Converter uma lista de entidades de departamentos para uma lista de domínios com sucesso para departamentos")
+        @DisplayName("Converter uma entidade de departamento para o domínio com sucesso para departamentos")
         @Test
         void testConvertSucesso() {
-            final var departamento = DepartamentoMock.mockDepartamentoResponse();
+            final var departamentoEntity = DepartamentoEntityMock.mockDepartamentoResponse();
 
-            final var departamentoEntity = DepartamentoDataproviderMapperResponse.convert(departamento);
+            final var departamento = DepartamentoDataproviderMapperResponse.convert(departamentoEntity);
 
-            assertNotNull(departamentoEntity);
+            assertNotNull(departamento);
             assertAll(
-                    () -> assertEquals(1L, departamentoEntity.getId()),
-                    () -> assertEquals("Alimentos", departamentoEntity.getNome())
+                    () -> assertEquals(1L, departamento.getId()),
+                    () -> assertEquals("Alimentos", departamento.getNome())
             );
+        }
+
+        @DisplayName("Converter uma entidade de departamento que está nulo retornando nulo para evitar nullPointer")
+        @Test
+        void testConvertNull() {
+            DepartamentoEntity departamentoEntity = null;
+            final var departamento = DepartamentoDataproviderMapperResponse.convert(departamentoEntity);
+
+            assertNull(departamento);
         }
     }
 }

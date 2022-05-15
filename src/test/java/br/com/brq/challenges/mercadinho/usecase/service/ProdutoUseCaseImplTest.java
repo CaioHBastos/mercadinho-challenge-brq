@@ -56,6 +56,7 @@ public class ProdutoUseCaseImplTest {
                     () -> assertEquals("Coca-Cola", produtoCriado.getMarca()),
                     () -> assertEquals(5.99, produtoCriado.getPreco()),
                     () -> assertTrue(produtoCriado.getAtivo()),
+                    () -> assertFalse(produtoCriado.getOfertado()),
                     () -> assertEquals(0, produtoCriado.getPorcentagemOferta())
             );
         }

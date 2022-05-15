@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
 import java.util.List;
 
 @UtilityClass
-public class DepartamentoMock {
+public class DepartamentoEntityMock {
 
     public static List<DepartamentoEntity> mockDepartamentosResponse() {
         return List.of(

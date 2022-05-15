@@ -38,13 +38,16 @@ public class ProdutoEntity {
     private Boolean ativo;
 
     @Column(nullable = false)
+    private Boolean ofertado;
+
+    @Column(nullable = false)
     private Integer porcentagemOferta;
 
     @ManyToMany
     @JoinTable(name = "produto_departamento",
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "departamento_id"))
-    private List<DepartamentoEntity> departamento = new ArrayList<>();
+    private List<DepartamentoEntity> departamentos = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

@@ -14,6 +14,7 @@ public class ProdutoDataproviderMapperRequest {
                 .marca(produto.getMarca())
                 .preco(produto.getPreco())
                 .ativo(produto.getAtivo())
+                .ofertado(produto.getOfertado())
                 .porcentagemOferta(produto.getPorcentagemOferta())
                 .build();
     }

@@ -15,8 +15,9 @@ public class ProdutoDataproviderMapperResponse {
                 .marca(produtoEntity.getMarca())
                 .preco(produtoEntity.getPreco())
                 .ativo(produtoEntity.getAtivo())
+                .ofertado(produtoEntity.getOfertado())
                 .porcentagemOferta(produtoEntity.getPorcentagemOferta())
-                .departamentos(DepartamentoDataproviderMapperResponse.convert(produtoEntity.getDepartamento()))
+                .departamentos(DepartamentoDataproviderMapperResponse.convert(produtoEntity.getDepartamentos()))
                 .build();
     }
 }

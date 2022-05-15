@@ -22,6 +22,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
         try {
             validarCadastroProduto(produto);
             produto.setAtivo(true);
+            produto.setOfertado(false);
             produto.setPorcentagemOferta(0);
 
             return produtoGateway.criarProduto(produto);

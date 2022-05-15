@@ -22,6 +22,7 @@ public class ProdutoMock {
                 .marca("Coca-Cola")
                 .preco(5.99)
                 .ativo(true)
+                .ofertado(false)
                 .porcentagemOferta(0)
                 .build();
     }
@@ -43,6 +44,7 @@ public class ProdutoMock {
                 .marca("Coca-Cola")
                 .preco(5.99)
                 .ativo(true)
+                .ofertado(false)
                 .porcentagemOferta(0)
                 .build();
     }
