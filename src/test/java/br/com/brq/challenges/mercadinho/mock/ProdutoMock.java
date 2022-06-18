@@ -1,9 +1,7 @@
-package br.com.brq.challenges.mercadinho.mock;
+/*package br.com.brq.challenges.mercadinho.mock;
 
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
-import lombok.experimental.UtilityClass;
 
-@UtilityClass
 public class ProdutoMock {
 
     public static Produto mockProdutoRequest() {
@@ -49,3 +47,4 @@ public class ProdutoMock {
                 .build();
     }
 }
+*/

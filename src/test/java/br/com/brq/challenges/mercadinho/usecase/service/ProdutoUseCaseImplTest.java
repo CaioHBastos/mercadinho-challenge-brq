@@ -1,4 +1,4 @@
-package br.com.brq.challenges.mercadinho.usecase.service;
+/*package br.com.brq.challenges.mercadinho.usecase.service;
 
 import br.com.brq.challenges.mercadinho.annotations.Aceitacao;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
@@ -98,3 +98,4 @@ public class ProdutoUseCaseImplTest {
         }
     }
 }
+*/

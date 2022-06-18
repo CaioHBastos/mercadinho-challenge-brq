@@ -1,13 +1,13 @@
-package br.com.brq.challenges.mercadinho.usecase.domain;
+package br.com.brq.challenges.mercadinho.entrypoint.model.response;
 
-public class Departamento {
+public class DepartamentoModelResponse {
 
     private Long id;
     private String nome;
 
-    public Departamento() {}
+    public DepartamentoModelResponse() {}
 
-    public Departamento(Long id, String nome) {
+    public DepartamentoModelResponse(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }
@@ -16,12 +16,12 @@ public class Departamento {
         return id;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public void setNome(String nome) {
