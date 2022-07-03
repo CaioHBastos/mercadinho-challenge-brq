@@ -10,5 +10,5 @@ import java.util.List;
 public interface DepartamentoEntrypointMapper {
 
     Departamento map(DepartamentoEntity departamentoEntity);
-    List<Departamento> map (List<DepartamentoEntity> departamentosEntity);
+    List<Departamento> map(List<DepartamentoEntity> departamentosEntity);
 }

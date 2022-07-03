@@ -9,6 +9,7 @@ import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -38,6 +39,23 @@ public class ProdutoImplementation implements ProdutoGateway {
     @Override
     public Optional<Produto> buscarProdutoPorNome(String nomeProduto) {
         Optional<ProdutoEntity> produtoEntity = produtoRepository.findByNomeProduto(nomeProduto);
+
+        if (produtoEntity.isPresent()) {
+            return produtoDataproviderMapper.wrapOptionalMap(produtoEntity.get());
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Produto> buscarTodosProdutos() {
+        List<ProdutoEntity> produtosEntity = produtoRepository.findAll();
+        return produtoDataproviderMapper.map(produtosEntity);
+    }
+
+    @Override
+    public Optional<Produto> detalharProdutoPorId(String idProduto) {
+        Optional<ProdutoEntity> produtoEntity = produtoRepository.findById(idProduto);
 
         if (produtoEntity.isPresent()) {
             return produtoDataproviderMapper.wrapOptionalMap(produtoEntity.get());

@@ -3,15 +3,15 @@ package br.com.brq.challenges.mercadinho.entrypoint.controller;
 import br.com.brq.challenges.mercadinho.entrypoint.mapper.ProdutoEntrypointMapper;
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoModelRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoModelResponse;
+import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoResumidoModelResponse;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
 import br.com.brq.challenges.mercadinho.usecase.service.ProdutoUseCase;
 import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/produtos")
@@ -32,5 +32,21 @@ public class ProdutoController {
         ProdutoModelResponse produtoModelResponse = produtoEntrypointMapper.map(produtoCriado);
 
         return new ResponseEntity<>(produtoModelResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProdutoResumidoModelResponse>> buscarTodosProdutos() {
+        List<Produto> produtos = produtoUseCase.buscarProdutos();
+        List<ProdutoResumidoModelResponse> produtosModelResponse = produtoEntrypointMapper.map(produtos);
+
+        return new ResponseEntity<>(produtosModelResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id_produto}")
+    public ResponseEntity<ProdutoModelResponse> detalharProduto(@PathVariable("id_produto") String idProduto) {
+        Produto produto = produtoUseCase.detalharProduto(idProduto);
+        ProdutoModelResponse produtoModelResponse = produtoEntrypointMapper.map(produto);
+
+        return new ResponseEntity<>(produtoModelResponse, HttpStatus.OK);
     }
 }

@@ -11,32 +11,41 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ProdutoModelResponse {
 
-    private Long id;
+    private String id;
     private String nome;
     private String descricao;
     private String marca;
     private Double preco;
     private Boolean ativo;
+    private Boolean ofertado;
+    private Integer porcentagemOferta;
+    private String dataCadastro;
+    private String dataAtualizacao;
     private List<DepartamentoModelResponse> departamentos = new ArrayList<>();
 
     public ProdutoModelResponse() {}
 
-    public ProdutoModelResponse(Long id, String nome, String descricao, String marca, Double preco,
-                                Boolean ativo, List<DepartamentoModelResponse> departamentos) {
+    public ProdutoModelResponse(String id, String nome, String descricao, String marca, Double preco,
+                                Boolean ativo, Boolean ofertado, Integer porcentagemOferta, String dataCadastro,
+                                String dataAtualizacao, List<DepartamentoModelResponse> departamentos) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.marca = marca;
         this.preco = preco;
         this.ativo = ativo;
+        this.ofertado = ofertado;
+        this.porcentagemOferta = porcentagemOferta;
+        this.dataCadastro = dataCadastro;
+        this.dataAtualizacao = dataAtualizacao;
         this.departamentos = departamentos;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -86,5 +95,37 @@ public class ProdutoModelResponse {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public String getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(String dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public String getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(String dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public Boolean getOfertado() {
+        return ofertado;
+    }
+
+    public void setOfertado(Boolean ofertado) {
+        this.ofertado = ofertado;
+    }
+
+    public Integer getPorcentagemOferta() {
+        return porcentagemOferta;
+    }
+
+    public void setPorcentagemOferta(Integer porcentagemOferta) {
+        this.porcentagemOferta = porcentagemOferta;
     }
 }

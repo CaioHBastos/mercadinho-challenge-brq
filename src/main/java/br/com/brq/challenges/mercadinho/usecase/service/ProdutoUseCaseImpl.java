@@ -4,8 +4,14 @@ import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
 import br.com.brq.challenges.mercadinho.usecase.exception.CadastroProdutoException;
 import br.com.brq.challenges.mercadinho.usecase.exception.CadastroRegraProdutoException;
 import br.com.brq.challenges.mercadinho.usecase.exception.CadastroReprocessamentoException;
+import br.com.brq.challenges.mercadinho.usecase.exception.RecursoNaoEncontradoException;
 import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProdutoUseCaseImpl implements ProdutoUseCase {
@@ -21,6 +27,8 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
 
         try {
             validarCadastroProduto(produto);
+            produto.setId(UUID.randomUUID().toString());
+            produto.setDataCadastro(gerarDataCadastro());
             produto.setAtivo(true);
             produto.setOfertado(false);
             produto.setPorcentagemOferta(0);
@@ -32,6 +40,24 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
                     "Requisição aceita, porém está em processamento o cadastro do produto."
             );
         }
+    }
+
+    @Override
+    public List<Produto> buscarProdutos() {
+        return produtoGateway.buscarTodosProdutos();
+    }
+
+    @Override
+    public Produto detalharProduto(String idProduto) {
+        return produtoGateway.detalharProdutoPorId(idProduto)
+                .orElseThrow(
+                        () -> new RecursoNaoEncontradoException(
+                                String.format("O produto informado '%s' não existe.", idProduto)
+                ));
+    }
+
+    private String gerarDataCadastro() {
+        return OffsetDateTime.now(ZoneId.of("America/Sao_Paulo")).toString();
     }
 
     private void validarCadastroProduto(Produto produto) {

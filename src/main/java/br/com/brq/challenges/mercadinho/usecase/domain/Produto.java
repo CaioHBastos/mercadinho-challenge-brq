@@ -5,10 +5,12 @@ import java.util.List;
 
 public class Produto {
 
-    private Long id;
+    private String id;
     private String nome;
     private String descricao;
     private String marca;
+    private String dataCadastro;
+    private String dataAtualizacao;
     private Double preco;
     private Boolean ativo;
     private Boolean ofertado;
@@ -17,12 +19,14 @@ public class Produto {
 
     public Produto() {}
 
-    public Produto(Long id, String nome, String descricao, String marca, Double preco, Boolean ativo,
+    public Produto(String id, String nome, String descricao, String marca, String dataCadastro, String dataAtualizacao, Double preco, Boolean ativo,
                    Boolean ofertado, Integer porcentagemOferta, List<Departamento> departamentos) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.marca = marca;
+        this.dataCadastro = dataCadastro;
+        this.dataAtualizacao = dataAtualizacao;
         this.preco = preco;
         this.ativo = ativo;
         this.ofertado = ofertado;
@@ -30,7 +34,7 @@ public class Produto {
         this.departamentos = departamentos;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -66,7 +70,7 @@ public class Produto {
         return departamentos;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -100,5 +104,21 @@ public class Produto {
 
     public void setDepartamentos(List<Departamento> departamentos) {
         this.departamentos = departamentos;
+    }
+
+    public String getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(String dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public String getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(String dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 }

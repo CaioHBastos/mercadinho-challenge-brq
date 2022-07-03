@@ -9,10 +9,9 @@ import java.util.Objects;
 @Table(name = "produto")
 public class ProdutoEntity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private Long idProduto;
+    private String idProduto;
 
     @Column(name = "nome", nullable = false)
     private String nomeProduto;
@@ -35,6 +34,12 @@ public class ProdutoEntity {
     @Column(name = "porcentagem_oferta", nullable = false)
     private Integer porcentagemOferta;
 
+    @Column(name = "data_cadastro", nullable = false)
+    private String dataCadastro;
+
+    @Column(name = "data_atualizacao")
+    private String dataAtualizacao;
+
     @ManyToMany
     @JoinTable(name = "produto_departamento",
             joinColumns = @JoinColumn(name = "produto_id"),
@@ -43,9 +48,9 @@ public class ProdutoEntity {
 
     public ProdutoEntity() {}
 
-    public ProdutoEntity(Long idProduto, String nomeProduto, String descricaoProduto, String marcaProduto,
+    public ProdutoEntity(String idProduto, String nomeProduto, String descricaoProduto, String marcaProduto,
                          Double preco, Boolean ativo, Boolean ofertado, Integer porcentagemOferta,
-                         List<DepartamentoEntity> departamentos) {
+                         String dataCadastro, String dataAtualizacao, List<DepartamentoEntity> departamentos) {
 
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto;
@@ -55,10 +60,12 @@ public class ProdutoEntity {
         this.ativo = ativo;
         this.ofertado = ofertado;
         this.porcentagemOferta = porcentagemOferta;
+        this.dataCadastro = dataCadastro;
+        this.dataAtualizacao = dataAtualizacao;
         this.departamentos = departamentos;
     }
 
-    public Long getIdProduto() {
+    public String getIdProduto() {
         return idProduto;
     }
 
@@ -94,7 +101,7 @@ public class ProdutoEntity {
         return departamentos;
     }
 
-    public void setIdProduto(Long idProduto) {
+    public void setIdProduto(String idProduto) {
         this.idProduto = idProduto;
     }
 
@@ -128,6 +135,22 @@ public class ProdutoEntity {
 
     public void setDepartamentos(List<DepartamentoEntity> departamentos) {
         this.departamentos = departamentos;
+    }
+
+    public String getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(String dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public String getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(String dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 
     @Override
