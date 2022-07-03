@@ -10,16 +10,16 @@ import java.util.Objects;
 public class ProdutoEntity {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", length=36)
     private String idProduto;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome", nullable = false, length=100)
     private String nomeProduto;
 
-    @Column(name = "descricao", nullable = false)
+    @Column(name = "descricao", nullable = false, length=256)
     private String descricaoProduto;
 
-    @Column(name = "marca", nullable = false)
+    @Column(name = "marca", nullable = false, length=50)
     private String marcaProduto;
 
     @Column(name = "preco", nullable = false)
@@ -34,10 +34,10 @@ public class ProdutoEntity {
     @Column(name = "porcentagem_oferta", nullable = false)
     private Integer porcentagemOferta;
 
-    @Column(name = "data_cadastro", nullable = false)
+    @Column(name = "data_cadastro", nullable = false, length=36)
     private String dataCadastro;
 
-    @Column(name = "data_atualizacao")
+    @Column(name = "data_atualizacao", length=36)
     private String dataAtualizacao;
 
     @ManyToMany
