@@ -2,6 +2,7 @@ package br.com.brq.challenges.mercadinho.entrypoint.controller;
 
 import br.com.brq.challenges.mercadinho.entrypoint.mapper.ProdutoEntrypointMapper;
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoModelRequest;
+import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoUpdateModelRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoModelResponse;
 import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoResumidoModelResponse;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
@@ -48,5 +49,22 @@ public class ProdutoController {
         ProdutoModelResponse produtoModelResponse = produtoEntrypointMapper.map(produto);
 
         return new ResponseEntity<>(produtoModelResponse, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id_produto}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removerProduto(@PathVariable("id_produto") String idProduto) {
+        produtoUseCase.removerProduto(idProduto);
+    }
+
+    @PatchMapping("/{id_produto}")
+    public ResponseEntity<ProdutoModelResponse> atualizarProduto(@PathVariable("id_produto") String idProduto,
+                                                                 @RequestBody ProdutoUpdateModelRequest produtoUpdateModelRequest) {
+
+        Produto produtoUpdate = produtoEntrypointMapper.map(produtoUpdateModelRequest);
+        Produto produtoAtualizado = produtoUseCase.atualiazarParcialmenteProduto(idProduto, produtoUpdate);
+        ProdutoModelResponse produtoModelResponse = produtoEntrypointMapper.map(produtoAtualizado);
+
+        return ResponseEntity.ok(produtoModelResponse);
     }
 }

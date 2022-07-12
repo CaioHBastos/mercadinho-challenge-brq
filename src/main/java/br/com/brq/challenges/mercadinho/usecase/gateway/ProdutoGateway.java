@@ -9,7 +9,15 @@ import java.util.Optional;
 public interface ProdutoGateway {
 
     Produto criarProduto(Produto produto) throws CadastroProdutoException;
+
     Optional<Produto> buscarProdutoPorNome(String nomeProduto);
+
     List<Produto> buscarTodosProdutos();
+
     Optional<Produto> detalharProdutoPorId(String idProduto);
+
+    void removerProdutoPorId(String idProduto);
+
+    Produto atualizarProduto(Produto produtoAtual);
+
 }

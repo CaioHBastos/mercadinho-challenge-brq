@@ -1,29 +1,23 @@
-package br.com.brq.challenges.mercadinho.usecase.domain;
+package br.com.brq.challenges.mercadinho.entrypoint.model.request;
 
-public class Departamento {
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-    private Long id;
+public class DepartamentoModelRequest {
+
     private String nome;
     private String descricao;
 
-    public Departamento() {}
+    public DepartamentoModelRequest() {
+    }
 
-    public Departamento(Long id, String nome, String descricao) {
-        this.id = id;
+    public DepartamentoModelRequest(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setNome(String nome) {

@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface DepartamentoDataproviderMapper {
 
+    DepartamentoEntity map(Departamento departamento);
     Departamento map(DepartamentoEntity departamentoEntity);
     List<Departamento> map (List<DepartamentoEntity> departamentosEntity);
 }

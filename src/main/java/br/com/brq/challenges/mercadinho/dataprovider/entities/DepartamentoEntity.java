@@ -9,32 +9,44 @@ public class DepartamentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDepartamento;
+    private Long id;
 
-    @Column(nullable = false)
-    private String nomeDepartamento;
+    @Column(nullable = false, length = 40)
+    private String nome;
+
+    @Column(nullable = false, length = 150)
+    private String descricao;
 
     public DepartamentoEntity() {}
 
-    public DepartamentoEntity(Long idDepartamento, String nomeDepartamento) {
-        this.idDepartamento = idDepartamento;
-        this.nomeDepartamento = nomeDepartamento;
+    public DepartamentoEntity(Long id, String nome, String descricao) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
     }
 
-    public Long getIdDepartamento() {
-        return idDepartamento;
+    public Long getId() {
+        return id;
     }
 
-    public String getNomeDepartamento() {
-        return nomeDepartamento;
+    public String getNome() {
+        return nome;
     }
 
-    public void setIdDepartamento(Long idDepartamento) {
-        this.idDepartamento = idDepartamento;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setNomeDepartamento(String nomeDepartamento) {
-        this.nomeDepartamento = nomeDepartamento;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override
@@ -42,11 +54,11 @@ public class DepartamentoEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DepartamentoEntity that = (DepartamentoEntity) o;
-        return idDepartamento.equals(that.idDepartamento);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idDepartamento);
+        return Objects.hash(id);
     }
 }

@@ -4,12 +4,14 @@ public class DepartamentoModelResponse {
 
     private Long id;
     private String nome;
+    private String descricao;
 
     public DepartamentoModelResponse() {}
 
-    public DepartamentoModelResponse(Long id, String nome) {
+    public DepartamentoModelResponse(Long id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
+        this.descricao = descricao;
     }
 
     public Long getId() {
@@ -26,5 +28,13 @@ public class DepartamentoModelResponse {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }

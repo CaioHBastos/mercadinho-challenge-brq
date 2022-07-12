@@ -1,6 +1,7 @@
 package br.com.brq.challenges.mercadinho.entrypoint.mapper;
 
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoModelRequest;
+import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoUpdateModelRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoModelResponse;
 import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoResumidoModelResponse;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
@@ -13,6 +14,8 @@ import java.util.List;
 public interface ProdutoEntrypointMapper {
 
     Produto map(ProdutoModelRequest produtoModelRequest);
+
+    Produto map(ProdutoUpdateModelRequest produtoUpdateModelRequest);
 
     @Mapping(
             source = "produto.departamentos", target = "departamentos"

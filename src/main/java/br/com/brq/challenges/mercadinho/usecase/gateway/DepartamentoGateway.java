@@ -8,7 +8,12 @@ import java.util.Optional;
 public interface DepartamentoGateway {
 
     Departamento criarDepartamento(Departamento departamento);
-    Optional<Boolean> consultarDepartamentoPorNome(String nomeDepartamento);
+
+    Optional<String> consultarDepartamentoPorNome(String nomeDepartamento);
+
     List<Departamento> buscarTodosDepartamentos();
+
+    Optional<String> consultarDepartamentoPorId(Long id);
+
     void removerDepartamento(Long id);
 }

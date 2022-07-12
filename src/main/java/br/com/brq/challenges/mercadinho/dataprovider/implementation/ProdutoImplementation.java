@@ -9,6 +9,7 @@ import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class ProdutoImplementation implements ProdutoGateway {
         this.produtoRepository = produtoRepository;
     }
 
+    @Transactional
     @Override
     public Produto criarProduto(Produto produto) throws CadastroProdutoException {
         try {
@@ -62,5 +64,19 @@ public class ProdutoImplementation implements ProdutoGateway {
         }
 
         return Optional.empty();
+    }
+
+    @Transactional
+    @Override
+    public void removerProdutoPorId(String idProduto) {
+        produtoRepository.deleteById(idProduto);
+    }
+
+    @Override
+    public Produto atualizarProduto(Produto produtoAtual) {
+        ProdutoEntity produtoEntity = produtoDataproviderMapper.map(produtoAtual);
+        ProdutoEntity produtoEntityCriado = produtoRepository.save(produtoEntity);
+
+        return produtoDataproviderMapper.map(produtoEntityCriado);
     }
 }
