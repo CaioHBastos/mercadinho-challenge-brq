@@ -1,6 +1,7 @@
 package br.com.brq.challenges.mercadinho.dataprovider.mapper;
 
 import br.com.brq.challenges.mercadinho.dataprovider.entities.ProdutoEntity;
+import br.com.brq.challenges.mercadinho.usecase.domain.Oferta;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -41,4 +42,15 @@ public interface ProdutoDataproviderMapper {
     default Optional<Produto> wrapOptionalMap(ProdutoEntity objeto) {
         return Optional.of(map(objeto));
     }
+
+    @Mappings({
+            @Mapping(source = "id", target = "produtoEntity.idProduto"),
+            @Mapping(source = "nome", target = "produtoEntity.nomeProduto"),
+            @Mapping(source = "descricao", target = "produtoEntity.descricaoProduto"),
+            @Mapping(source = "marca", target = "produtoEntity.marcaProduto"),
+            @Mapping(source = "departamentos", target = "produtoEntity.departamentos")
+    })
+    List<ProdutoEntity> mapProdutosOferta(List<Produto> produtos);
+
+    List<Oferta> mapOfertas(List<ProdutoEntity> produtoEntities);
 }

@@ -3,6 +3,7 @@ package br.com.brq.challenges.mercadinho.usecase.service;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
 import br.com.brq.challenges.mercadinho.usecase.exception.*;
 import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
+import br.com.brq.challenges.mercadinho.usecase.service.utils.MercadinhoServiceUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
         try {
             validarCadastroProduto(produto);
             produto.setId(UUID.randomUUID().toString());
-            produto.setDataCadastro(gerarData());
+            produto.setDataCadastro(MercadinhoServiceUtils.gerarData());
             produto.setAtivo(true);
             produto.setOfertado(false);
             produto.setPorcentagemOferta(0);
@@ -93,6 +94,10 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
             produtoAtual.setDescricao(novoProduto.getDescricao());
         }
 
+        if (StringUtils.isNotBlank(novoProduto.getMarca())) {
+            produtoAtual.setMarca(novoProduto.getMarca());
+        }
+
         if (Objects.nonNull(novoProduto.getPreco())) {
             validarPreco(novoProduto);
             produtoAtual.setPreco(novoProduto.getPreco());
@@ -114,6 +119,14 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
                 throw new RegraProdutoException("Não é possível ofertar esse produto, porque o mesmo não está ativo.");
             }
 
+            if (Objects.isNull(novoProduto.getPorcentagemOferta())) {
+                throw new RegraProdutoException("Para ofertar um produto é obrigatório informar a porcentagem de oferta.");
+            }
+
+            if (produtoAtual.getOfertado() && novoProduto.getPorcentagemOferta() <= 0 ) {
+                throw new RegraProdutoException("Não é possível ofertar o produto, sem informar a porcentagem de oferta.");
+            }
+
             produtoAtual.setOfertado(novoProduto.getOfertado());
         }
 
@@ -130,13 +143,9 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
             produtoAtual.setPorcentagemOferta(novoProduto.getPorcentagemOferta());
         }
 
-        produtoAtual.setDataAtualizacao(gerarData());
+        produtoAtual.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
 
         return produtoGateway.atualizarProduto(produtoAtual);
-    }
-
-    private String gerarData() {
-        return OffsetDateTime.now(ZoneId.of("America/Sao_Paulo")).toString();
     }
 
     private void validarCadastroProduto(Produto produto) {

@@ -45,8 +45,8 @@ public class DepartamentoImplementation implements DepartamentoGateway {
     }
 
     @Override
-    public List<Departamento> buscarTodosDepartamentos() {
-        List<DepartamentoEntity> departamentos = departamentoRepository.findAll();
+    public List<Departamento> buscarTodosDepartamentos(String nomeDepartamento) {
+        List<DepartamentoEntity> departamentos = departamentoRepository.findAllWithFilter(nomeDepartamento);
 
         return departamentoDataproviderMapper.map(departamentos);
     }

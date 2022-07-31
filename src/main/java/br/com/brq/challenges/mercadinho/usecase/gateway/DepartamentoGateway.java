@@ -11,7 +11,7 @@ public interface DepartamentoGateway {
 
     Optional<String> consultarDepartamentoPorNome(String nomeDepartamento);
 
-    List<Departamento> buscarTodosDepartamentos();
+    List<Departamento> buscarTodosDepartamentos(String nomeDepartamento);
 
     Optional<String> consultarDepartamentoPorId(Long id);
 

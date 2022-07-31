@@ -8,7 +8,7 @@ public interface DepartamentoUseCase {
 
     Departamento criarDepartamento(Departamento departamento);
 
-    List<Departamento> buscarTodosDepartamentos();
+    List<Departamento> buscarTodosDepartamentos(String nomeDepartamento);
 
     void removerDepartamento(Long id);
 }

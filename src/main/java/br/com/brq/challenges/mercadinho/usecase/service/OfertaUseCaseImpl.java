@@ -1,0 +1,77 @@
+package br.com.brq.challenges.mercadinho.usecase.service;
+
+import br.com.brq.challenges.mercadinho.usecase.domain.Oferta;
+import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
+import br.com.brq.challenges.mercadinho.usecase.exception.NenhumConteudoEncontradoException;
+import br.com.brq.challenges.mercadinho.usecase.exception.RegraProdutoException;
+import br.com.brq.challenges.mercadinho.usecase.gateway.OfertaGateway;
+import br.com.brq.challenges.mercadinho.usecase.service.utils.MercadinhoServiceUtils;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class OfertaUseCaseImpl implements OfertaUseCase {
+
+    private final OfertaGateway ofertaGateway;
+    private final ProdutoUseCaseImpl produtoUseCase;
+
+    public OfertaUseCaseImpl(OfertaGateway ofertaGateway, ProdutoUseCaseImpl produtoUseCase) {
+        this.ofertaGateway = ofertaGateway;
+        this.produtoUseCase = produtoUseCase;
+    }
+
+    @Override
+    public void adicionarOfertas(List<Oferta> ofertas) {
+        List<Produto> produtos = new ArrayList<>();
+
+        ofertas.forEach(oferta -> {
+            Produto produto = produtoUseCase.detalharProduto(oferta.getIdProduto());
+
+            if (oferta.getPorcentagemOferta() <= 0) {
+                throw new RegraProdutoException("A porcentagem da oferta está inválida, tem que ser maior que 0.");
+            }
+
+            if (!produto.getAtivo()) {
+                throw new RegraProdutoException("O produto não pode ser ofertado porque está inativo.");
+            }
+
+            produto.setOfertado(true);
+            produto.setPorcentagemOferta(oferta.getPorcentagemOferta());
+            produto.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
+
+            produtos.add(produto);
+        });
+
+        ofertaGateway.ofertarProdutos(produtos);
+    }
+
+    @Override
+    public void removerOfertas(List<String> idsProduto) {
+        List<Produto> produtos = new ArrayList<>();
+
+        idsProduto.forEach(idProduto -> {
+            Produto produto = produtoUseCase.detalharProduto(idProduto);
+
+            produto.setOfertado(false);
+            produto.setPorcentagemOferta(0);
+            produto.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
+
+            produtos.add(produto);
+        });
+
+        ofertaGateway.ofertarProdutos(produtos);
+    }
+
+    @Override
+    public List<Oferta> buscarOfertas() {
+        List<Oferta> ofertas = ofertaGateway.buscarProdutosEmOferta();
+
+        if (ofertas.isEmpty()) {
+            throw new NenhumConteudoEncontradoException("Não existem ofertas cadastradas.");
+        }
+
+        return ofertas;
+    }
+}

@@ -37,8 +37,8 @@ public class DepartamentoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DepartamentoModelResponse>> buscarTodosDepartamento() {
-        List<Departamento> departamentos = departamentoUseCase.buscarTodosDepartamentos();
+    public ResponseEntity<List<DepartamentoModelResponse>> buscarTodosDepartamento(@RequestParam(value = "nome", required = false) String nomeDepartamento) {
+        List<Departamento> departamentos = departamentoUseCase.buscarTodosDepartamentos(nomeDepartamento);
         List<DepartamentoModelResponse> departamentoModelResponses = departamentoEntrypointMapper.map(departamentos);
 
         return new ResponseEntity<>(departamentoModelResponses, HttpStatus.OK);

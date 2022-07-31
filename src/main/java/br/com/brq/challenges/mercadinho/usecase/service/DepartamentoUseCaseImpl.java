@@ -2,9 +2,11 @@ package br.com.brq.challenges.mercadinho.usecase.service;
 
 import br.com.brq.challenges.mercadinho.usecase.domain.Departamento;
 import br.com.brq.challenges.mercadinho.usecase.exception.CadastroRegraDepartamentoException;
+import br.com.brq.challenges.mercadinho.usecase.exception.EntidadeEmUsoException;
 import br.com.brq.challenges.mercadinho.usecase.exception.NenhumConteudoEncontradoException;
 import br.com.brq.challenges.mercadinho.usecase.exception.RecursoNaoEncontradoException;
 import br.com.brq.challenges.mercadinho.usecase.gateway.DepartamentoGateway;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,8 +39,8 @@ public class DepartamentoUseCaseImpl implements DepartamentoUseCase {
     }
 
     @Override
-    public List<Departamento> buscarTodosDepartamentos() {
-        List<Departamento> departamentos = departamentoGateway.buscarTodosDepartamentos();
+    public List<Departamento> buscarTodosDepartamentos(String nomeDepartamento) {
+        List<Departamento> departamentos = departamentoGateway.buscarTodosDepartamentos(nomeDepartamento);
 
         if (departamentos.isEmpty()) {
             throw new NenhumConteudoEncontradoException("Não existem cadastro de departamentos");
@@ -53,7 +55,10 @@ public class DepartamentoUseCaseImpl implements DepartamentoUseCase {
                 .orElseThrow(() -> new RecursoNaoEncontradoException(
                         String.format("O departamento informado '%s' não existe", id)
                 ));
-
-        departamentoGateway.removerDepartamento(id);
+        try {
+            departamentoGateway.removerDepartamento(id);
+        } catch (DataIntegrityViolationException exception) {
+            throw new EntidadeEmUsoException("A entidade de departamento está em uso e não pode ser removida.");
+        }
     }
 }
