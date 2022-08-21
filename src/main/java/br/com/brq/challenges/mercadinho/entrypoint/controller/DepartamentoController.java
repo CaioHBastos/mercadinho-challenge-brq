@@ -46,7 +46,7 @@ public class DepartamentoController {
 
     @DeleteMapping("/{id_departamento}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removerDepartamento(@PathVariable("id_departamento") Long idDepartamento) {
+    public void removerDepartamento(@PathVariable("id_departamento") Integer idDepartamento) {
         departamentoUseCase.removerDepartamento(idDepartamento);
     }
 }

@@ -13,7 +13,7 @@ public interface DepartamentoGateway {
 
     List<Departamento> buscarTodosDepartamentos(String nomeDepartamento);
 
-    Optional<String> consultarDepartamentoPorId(Long id);
+    Optional<String> consultarDepartamentoPorId(Integer id);
 
-    void removerDepartamento(Long id);
+    void removerDepartamento(Integer id);
 }

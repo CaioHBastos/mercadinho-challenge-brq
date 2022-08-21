@@ -52,7 +52,7 @@ public class DepartamentoImplementation implements DepartamentoGateway {
     }
 
     @Override
-    public Optional<String> consultarDepartamentoPorId(Long id) {
+    public Optional<String> consultarDepartamentoPorId(Integer id) {
         Optional<DepartamentoEntity> departamento = departamentoRepository.findById(id);
 
         if (departamento.isPresent()) {
@@ -63,7 +63,7 @@ public class DepartamentoImplementation implements DepartamentoGateway {
 
     @Transactional
     @Override
-    public void removerDepartamento(Long id) {
+    public void removerDepartamento(Integer id) {
         departamentoRepository.deleteById(id);
     }
 }

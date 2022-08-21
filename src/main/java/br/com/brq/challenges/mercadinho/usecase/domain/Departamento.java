@@ -2,19 +2,19 @@ package br.com.brq.challenges.mercadinho.usecase.domain;
 
 public class Departamento {
 
-    private Long id;
+    private Integer id;
     private String nome;
     private String descricao;
 
     public Departamento() {}
 
-    public Departamento(Long id, String nome, String descricao) {
+    public Departamento(Integer id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -22,7 +22,7 @@ public class Departamento {
         return nome;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

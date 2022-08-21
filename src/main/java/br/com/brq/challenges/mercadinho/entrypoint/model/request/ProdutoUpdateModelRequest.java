@@ -1,5 +1,7 @@
 package br.com.brq.challenges.mercadinho.entrypoint.model.request;
 
+import java.util.List;
+
 public class ProdutoUpdateModelRequest {
 
     private String nome;
@@ -9,11 +11,12 @@ public class ProdutoUpdateModelRequest {
     private Boolean ativo;
     private Boolean ofertado;
     private Integer porcentagemOferta;
+    private List<DepartamentoIdModelRequest> departamentos;
 
     public ProdutoUpdateModelRequest() {
     }
 
-    public ProdutoUpdateModelRequest(String nome, String descricao, String marca, Double preco, Boolean ativo, Boolean ofertado, Integer porcentagemOferta) {
+    public ProdutoUpdateModelRequest(String nome, String descricao, String marca, Double preco, Boolean ativo, Boolean ofertado, Integer porcentagemOferta, List<DepartamentoIdModelRequest> departamentos) {
         this.nome = nome;
         this.descricao = descricao;
         this.marca = marca;
@@ -21,6 +24,7 @@ public class ProdutoUpdateModelRequest {
         this.ativo = ativo;
         this.ofertado = ofertado;
         this.porcentagemOferta = porcentagemOferta;
+        this.departamentos = departamentos;
     }
 
     public String getNome() {
@@ -77,5 +81,13 @@ public class ProdutoUpdateModelRequest {
 
     public void setPorcentagemOferta(Integer porcentagemOferta) {
         this.porcentagemOferta = porcentagemOferta;
+    }
+
+    public List<DepartamentoIdModelRequest> getDepartamentos() {
+        return departamentos;
+    }
+
+    public void setDepartamentos(List<DepartamentoIdModelRequest> departamentos) {
+        this.departamentos = departamentos;
     }
 }

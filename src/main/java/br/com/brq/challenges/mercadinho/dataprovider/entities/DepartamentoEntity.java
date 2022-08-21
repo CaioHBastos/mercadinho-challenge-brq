@@ -9,7 +9,7 @@ public class DepartamentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, length = 40)
     private String nome;
@@ -19,13 +19,13 @@ public class DepartamentoEntity {
 
     public DepartamentoEntity() {}
 
-    public DepartamentoEntity(Long id, String nome, String descricao) {
+    public DepartamentoEntity(Integer id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -33,7 +33,7 @@ public class DepartamentoEntity {
         return nome;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

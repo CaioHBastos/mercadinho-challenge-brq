@@ -7,8 +7,6 @@ import br.com.brq.challenges.mercadinho.usecase.service.utils.MercadinhoServiceU
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,9 +16,11 @@ import java.util.UUID;
 public class ProdutoUseCaseImpl implements ProdutoUseCase {
 
     private final ProdutoGateway produtoGateway;
+    private final DepartamentoUseCase departamentoUseCase;
 
-    public ProdutoUseCaseImpl(ProdutoGateway produtoGateway) {
+    public ProdutoUseCaseImpl(ProdutoGateway produtoGateway, DepartamentoUseCase departamentoUseCase) {
         this.produtoGateway = produtoGateway;
+        this.departamentoUseCase = departamentoUseCase;
     }
 
     @Override
@@ -143,6 +143,12 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
             produtoAtual.setPorcentagemOferta(novoProduto.getPorcentagemOferta());
         }
 
+        if (!novoProduto.getDepartamentos().isEmpty()) {
+            validarDepartamento(novoProduto);
+
+            produtoAtual.setDepartamentos(novoProduto.getDepartamentos());
+        }
+
         produtoAtual.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
 
         return produtoGateway.atualizarProduto(produtoAtual);
@@ -151,6 +157,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     private void validarCadastroProduto(Produto produto) {
         validarDuplicidade(produto);
         validarPreco(produto);
+        validarDepartamento(produto);
     }
 
     private void validarDuplicidade(Produto produto) {
@@ -168,6 +175,15 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
                     "Erro ao realizar o cadastro do produto. O produto não pode ser cadastrado com o valor menor " +
                             "ou igual zero e foi informado '%s'.", produto.getPreco()
             ));
+        }
+    }
+
+    private void validarDepartamento(Produto produto) {
+        try {
+            produto.getDepartamentos().forEach(departamento -> departamentoUseCase.buscarDepartamento(departamento.getId()));
+
+        } catch (RecursoNaoEncontradoException exception) {
+            throw new RegraProdutoException(exception.getMessage());
         }
     }
 }
