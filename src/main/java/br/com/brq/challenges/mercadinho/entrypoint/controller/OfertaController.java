@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class OfertaController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> adicionarOfertaEmProduto(@RequestBody List<OfertaModelRequest> ofertasModelRequest) {
+    public ResponseEntity<Void> adicionarOfertaEmProduto(@Valid @RequestBody List<OfertaModelRequest> ofertasModelRequest) {
         List<Oferta> ofertas = ofertaEntrypointMapper.map(ofertasModelRequest);
         ofertaUseCase.adicionarOfertas(ofertas);
 

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProdutoModelResponse> cadastrarProduto(@RequestBody ProdutoModelRequest produtoModelRequest) {
+    public ResponseEntity<ProdutoModelResponse> cadastrarProduto(@Valid @RequestBody ProdutoModelRequest produtoModelRequest) {
         Produto produtoRequest = produtoEntrypointMapper.map(produtoModelRequest);
         Produto produtoCriado = produtoUseCase.criarProduto(produtoRequest);
         ProdutoModelResponse produtoModelResponse = produtoEntrypointMapper.map(produtoCriado);

@@ -1,13 +1,31 @@
 package br.com.brq.challenges.mercadinho.entrypoint.model.request;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class ProdutoModelRequest {
 
+    @NotBlank
+    @Size(max = 50)
     private String nome;
+
+    @NotBlank
+    @Size(max = 256)
     private String descricao;
+
+    @NotBlank
+    @Size(max = 50)
     private String marca;
+
+    @NotNull
     private Double preco;
+
+    @Valid
+    @NotEmpty
     private List<DepartamentoIdModelRequest> departamentos;
 
     public ProdutoModelRequest() {}

@@ -1,11 +1,16 @@
 package br.com.brq.challenges.mercadinho.entrypoint.model.request;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class DepartamentoModelRequest {
 
+    @NotBlank
+    @Size(max = 30)
     private String nome;
+
+    @NotBlank
+    @Size(max = 256)
     private String descricao;
 
     public DepartamentoModelRequest() {
