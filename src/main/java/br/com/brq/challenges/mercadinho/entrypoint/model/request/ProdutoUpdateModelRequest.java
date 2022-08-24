@@ -1,11 +1,17 @@
 package br.com.brq.challenges.mercadinho.entrypoint.model.request;
 
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class ProdutoUpdateModelRequest {
 
+    @Size(max = 60)
     private String nome;
+
+    @Size(max = 256)
     private String descricao;
+
+    @Size(max = 40)
     private String marca;
     private Double preco;
     private Boolean ativo;

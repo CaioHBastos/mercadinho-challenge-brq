@@ -50,7 +50,7 @@ public class MercadoExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(mensagemExceptionHandler, httpRegistroNaoEncontrado);
     }
 
-    @ExceptionHandler({ RegraDepartamentoException.class, RegraProdutoException.class})
+    @ExceptionHandler({ RegraDepartamentoException.class, RegraProdutoException.class, RegraOfertaException.class })
     public final ResponseEntity<MensagemExceptionHandler> handleRegraNegocio(Exception exception) {
         HttpStatus httpRegraNegocio = HttpStatus.UNPROCESSABLE_ENTITY;
 

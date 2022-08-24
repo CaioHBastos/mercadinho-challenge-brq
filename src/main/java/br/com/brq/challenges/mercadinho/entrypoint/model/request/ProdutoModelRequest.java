@@ -10,7 +10,7 @@ import java.util.List;
 public class ProdutoModelRequest {
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 60)
     private String nome;
 
     @NotBlank
@@ -18,7 +18,7 @@ public class ProdutoModelRequest {
     private String descricao;
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 40)
     private String marca;
 
     @NotNull

@@ -60,7 +60,7 @@ public class ProdutoController {
 
     @PatchMapping("/{id_produto}")
     public ResponseEntity<ProdutoModelResponse> atualizarProduto(@PathVariable("id_produto") String idProduto,
-                                                                 @RequestBody ProdutoUpdateModelRequest produtoUpdateModelRequest) {
+                                                                 @RequestBody @Valid ProdutoUpdateModelRequest produtoUpdateModelRequest) {
 
         Produto produtoUpdate = produtoEntrypointMapper.map(produtoUpdateModelRequest);
         Produto produtoAtualizado = produtoUseCase.atualiazarParcialmenteProduto(idProduto, produtoUpdate);

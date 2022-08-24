@@ -3,6 +3,8 @@ package br.com.brq.challenges.mercadinho.usecase.service;
 import br.com.brq.challenges.mercadinho.usecase.domain.Oferta;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
 import br.com.brq.challenges.mercadinho.usecase.exception.NenhumConteudoEncontradoException;
+import br.com.brq.challenges.mercadinho.usecase.exception.RecursoNaoEncontradoException;
+import br.com.brq.challenges.mercadinho.usecase.exception.RegraOfertaException;
 import br.com.brq.challenges.mercadinho.usecase.exception.RegraProdutoException;
 import br.com.brq.challenges.mercadinho.usecase.gateway.OfertaGateway;
 import br.com.brq.challenges.mercadinho.usecase.service.utils.MercadinhoServiceUtils;
@@ -51,15 +53,20 @@ public class OfertaUseCaseImpl implements OfertaUseCase {
     public void removerOfertas(List<String> idsProduto) {
         List<Produto> produtos = new ArrayList<>();
 
-        idsProduto.forEach(idProduto -> {
-            Produto produto = produtoUseCase.detalharProduto(idProduto);
+        try {
+            idsProduto.forEach(idProduto -> {
+                Produto produto = produtoUseCase.detalharProduto(idProduto);
 
-            produto.setOfertado(false);
-            produto.setPorcentagemOferta(0);
-            produto.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
+                produto.setOfertado(false);
+                produto.setPorcentagemOferta(0);
+                produto.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
 
-            produtos.add(produto);
-        });
+                produtos.add(produto);
+            });
+        } catch (RecursoNaoEncontradoException exception) {
+            throw new RegraOfertaException(exception.getMessage());
+        }
+
 
         ofertaGateway.ofertarProdutos(produtos);
     }
