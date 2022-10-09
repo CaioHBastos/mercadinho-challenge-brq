@@ -16,4 +16,8 @@ public interface ProdutoUseCase {
     void removerProduto(String idProduto);
 
     Produto atualiazarParcialmenteProduto(String idProduto, Produto produto);
+
+    void ativarProdutos(List<Produto> produtos);
+
+    void inativarProdutos(List<Produto> produtos);
 }

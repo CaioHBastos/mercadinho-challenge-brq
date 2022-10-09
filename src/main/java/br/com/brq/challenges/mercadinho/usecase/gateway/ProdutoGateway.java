@@ -20,4 +20,5 @@ public interface ProdutoGateway {
 
     Produto atualizarProduto(Produto produtoAtual);
 
+    void atualizarAtivacaoProdutos(List<Produto> produtosAtualizado);
 }

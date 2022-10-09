@@ -1,6 +1,7 @@
 package br.com.brq.challenges.mercadinho.entrypoint.controller;
 
 import br.com.brq.challenges.mercadinho.entrypoint.mapper.ProdutoEntrypointMapper;
+import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoAtivacaoModelRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoModelRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoUpdateModelRequest;
 import br.com.brq.challenges.mercadinho.entrypoint.model.response.ProdutoModelResponse;
@@ -67,5 +68,19 @@ public class ProdutoController {
         ProdutoModelResponse produtoModelResponse = produtoEntrypointMapper.map(produtoAtualizado);
 
         return ResponseEntity.ok(produtoModelResponse);
+    }
+
+    @PutMapping("/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativarProdutos(@RequestBody @Valid List<ProdutoAtivacaoModelRequest> produtosModelRequest) {
+        List<Produto> produtos = produtoEntrypointMapper.mapAtivacao(produtosModelRequest);
+        produtoUseCase.ativarProdutos(produtos);
+    }
+
+    @DeleteMapping("/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativarProdutos(@RequestBody @Valid List<ProdutoAtivacaoModelRequest> produtosModelRequest) {
+        List<Produto> produtos = produtoEntrypointMapper.mapAtivacao(produtosModelRequest);
+        produtoUseCase.inativarProdutos(produtos);
     }
 }

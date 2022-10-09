@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface OfertaUseCase {
 
-    void adicionarOfertas(List<Oferta> ofertas);
+    Boolean adicionarOfertas(List<Oferta> ofertas);
 
-    void removerOfertas(List<String> idsProduto);
+    Boolean removerOfertas(List<String> idsProduto);
 
     List<Oferta> buscarOfertas();
 }

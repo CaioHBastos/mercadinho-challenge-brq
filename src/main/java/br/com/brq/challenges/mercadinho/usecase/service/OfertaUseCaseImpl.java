@@ -17,15 +17,15 @@ import java.util.List;
 public class OfertaUseCaseImpl implements OfertaUseCase {
 
     private final OfertaGateway ofertaGateway;
-    private final ProdutoUseCaseImpl produtoUseCase;
+    private final ProdutoUseCase produtoUseCase;
 
-    public OfertaUseCaseImpl(OfertaGateway ofertaGateway, ProdutoUseCaseImpl produtoUseCase) {
+    public OfertaUseCaseImpl(OfertaGateway ofertaGateway, ProdutoUseCase produtoUseCase) {
         this.ofertaGateway = ofertaGateway;
         this.produtoUseCase = produtoUseCase;
     }
 
     @Override
-    public void adicionarOfertas(List<Oferta> ofertas) {
+    public Boolean adicionarOfertas(List<Oferta> ofertas) {
         List<Produto> produtos = new ArrayList<>();
 
         ofertas.forEach(oferta -> {
@@ -47,10 +47,11 @@ public class OfertaUseCaseImpl implements OfertaUseCase {
         });
 
         ofertaGateway.ofertarProdutos(produtos);
+        return true;
     }
 
     @Override
-    public void removerOfertas(List<String> idsProduto) {
+    public Boolean removerOfertas(List<String> idsProduto) {
         List<Produto> produtos = new ArrayList<>();
 
         try {
@@ -67,8 +68,8 @@ public class OfertaUseCaseImpl implements OfertaUseCase {
             throw new RegraOfertaException(exception.getMessage());
         }
 
-
         ofertaGateway.ofertarProdutos(produtos);
+        return true;
     }
 
     @Override

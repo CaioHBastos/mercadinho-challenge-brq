@@ -79,4 +79,12 @@ public class ProdutoImplementation implements ProdutoGateway {
 
         return produtoDataproviderMapper.map(produtoEntityCriado);
     }
+
+    @Override
+    public void atualizarAtivacaoProdutos(List<Produto> produtosAtualizado) {
+        produtosAtualizado.forEach(produto -> {
+            ProdutoEntity produtoEntity = produtoDataproviderMapper.map(produto);
+            produtoRepository.save(produtoEntity);
+        });
+    }
 }

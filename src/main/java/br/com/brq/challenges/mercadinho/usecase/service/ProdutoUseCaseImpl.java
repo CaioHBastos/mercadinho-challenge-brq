@@ -7,10 +7,7 @@ import br.com.brq.challenges.mercadinho.usecase.service.utils.MercadinhoServiceU
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ProdutoUseCaseImpl implements ProdutoUseCase {
@@ -152,6 +149,52 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
         produtoAtual.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
 
         return produtoGateway.atualizarProduto(produtoAtual);
+    }
+
+    @Override
+    public void ativarProdutos(List<Produto> produtos) {
+        List<Produto> produtosAtualizado = new ArrayList<>();
+
+        produtos.forEach(produto -> {
+            try {
+                Produto produtoAtual = detalharProduto(produto.getId());
+                produtoAtual.setAtivo(Boolean.TRUE);
+                produtoAtual.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
+
+                produtosAtualizado.add(produtoAtual);
+
+            } catch (RecursoNaoEncontradoException exception) {
+                throw new RegraProdutoException(String.format(
+                        "O produto com o ID '%s' não foi encontrado.", produto.getId()
+                ));
+            }
+        });
+
+        produtoGateway.atualizarAtivacaoProdutos(produtosAtualizado);
+    }
+
+    @Override
+    public void inativarProdutos(List<Produto> produtos) {
+        List<Produto> produtosAtualizado = new ArrayList<>();
+
+        produtos.forEach(produto -> {
+            try {
+                Produto produtoAtual = detalharProduto(produto.getId());
+                produtoAtual.setAtivo(Boolean.FALSE);
+                produtoAtual.setOfertado(Boolean.FALSE);
+                produtoAtual.setPorcentagemOferta(0);
+                produtoAtual.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
+
+                produtosAtualizado.add(produtoAtual);
+
+            } catch (RecursoNaoEncontradoException exception) {
+                throw new RegraProdutoException(String.format(
+                        "O produto com o ID '%s' não foi encontrado.", produto.getId()
+                ));
+            }
+        });
+
+        produtoGateway.atualizarAtivacaoProdutos(produtosAtualizado);
     }
 
     private void validarCadastroProduto(Produto produto) {
