@@ -1,13 +1,16 @@
 package br.com.brq.challenges.mercadinho.usecase.service;
 
+import br.com.brq.challenges.mercadinho.usecase.domain.Departamento;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
 import br.com.brq.challenges.mercadinho.usecase.exception.*;
 import br.com.brq.challenges.mercadinho.usecase.gateway.ProdutoGateway;
+import br.com.brq.challenges.mercadinho.usecase.service.utils.MercadinhoListServiceUtils;
 import br.com.brq.challenges.mercadinho.usecase.service.utils.MercadinhoServiceUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 @Service
 public class ProdutoUseCaseImpl implements ProdutoUseCase {
@@ -155,6 +158,54 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
         });
 
         produtoGateway.atualizarAtivacaoProdutos(produtosAtualizado);
+    }
+
+    @Override
+    public void adicionarDepartamentoEmProduto(String idProduto, List<Departamento> departamentos) {
+        Produto produto = detalharProduto(idProduto);
+
+        try {
+            departamentos.forEach(departamento -> {
+                departamentoUseCase.buscarDepartamento(departamento.getId());
+
+                produto.getDepartamentos().add(departamento);
+                produto.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
+            });
+        } catch (RecursoNaoEncontradoException exception) {
+            throw new RegraProdutoException(exception.getMessage());
+        }
+
+        produtoGateway.atualizarProduto(produto);
+    }
+
+    @Override
+    public void removerDepartamentoEmProduto(String idProduto, List<Departamento> departamentos) {
+        Produto produto = detalharProduto(idProduto);
+
+        try {
+            departamentos.forEach(departamentoParaRemover -> {
+                produto.getDepartamentos().stream()
+                        .filter(departamentoExistente -> departamentoExistente.getId().equals(departamentoParaRemover.getId()))
+                        .findAny()
+                        .orElseThrow(() -> new RegraProdutoException(String.format(
+                                "O departamento informado '%s' não está presente no produto '%s'",
+                                departamentoParaRemover.getId(), produto.getNome()
+                        )));
+
+                Predicate<Departamento> predicate = departamento -> departamento.getId().equals(departamentoParaRemover.getId());
+
+                int index = MercadinhoListServiceUtils.indexOf(produto.getDepartamentos(), predicate);
+
+                produto.getDepartamentos().remove(index);
+            });
+
+            produto.setDataAtualizacao(MercadinhoServiceUtils.gerarData());
+
+        } catch (RecursoNaoEncontradoException exception) {
+            throw new RegraProdutoException(exception.getMessage());
+        }
+
+        produtoGateway.atualizarProduto(produto);
     }
 
     private void validarCadastroProduto(Produto produto) {

@@ -15,13 +15,12 @@ public class Produto {
     private Boolean ativo;
     private Boolean ofertado;
     private Integer porcentagemOferta;
-    private Integer idDepartamento;
     private List<Departamento> departamentos = new ArrayList<>();
 
     public Produto() {}
 
     public Produto(String id, String nome, String descricao, String marca, String dataCadastro, String dataAtualizacao, Double preco, Boolean ativo,
-                   Boolean ofertado, Integer porcentagemOferta, Integer idDepartamento, List<Departamento> departamentos) {
+                   Boolean ofertado, Integer porcentagemOferta, List<Departamento> departamentos) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -32,7 +31,6 @@ public class Produto {
         this.ativo = ativo;
         this.ofertado = ofertado;
         this.porcentagemOferta = porcentagemOferta;
-        this.idDepartamento = idDepartamento;
         this.departamentos = departamentos;
     }
 
@@ -122,13 +120,5 @@ public class Produto {
 
     public void setDataAtualizacao(String dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
-    }
-
-    public Integer getIdDepartamento() {
-        return idDepartamento;
-    }
-
-    public void setIdDepartamento(Integer idDepartamento) {
-        this.idDepartamento = idDepartamento;
     }
 }

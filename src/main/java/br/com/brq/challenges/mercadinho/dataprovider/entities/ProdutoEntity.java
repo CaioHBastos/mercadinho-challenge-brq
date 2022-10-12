@@ -1,9 +1,8 @@
 package br.com.brq.challenges.mercadinho.dataprovider.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "produto")
@@ -44,13 +43,13 @@ public class ProdutoEntity {
     @JoinTable(name = "produto_departamento",
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "departamento_id"))
-    private List<DepartamentoEntity> departamentos = new ArrayList<>();
+    private Set<DepartamentoEntity> departamentos;
 
     public ProdutoEntity() {}
 
     public ProdutoEntity(String idProduto, String nomeProduto, String descricaoProduto, String marcaProduto,
                          Double preco, Boolean ativo, Boolean ofertado, Integer porcentagemOferta,
-                         String dataCadastro, String dataAtualizacao, List<DepartamentoEntity> departamentos) {
+                         String dataCadastro, String dataAtualizacao, Set<DepartamentoEntity> departamentos) {
 
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto;
@@ -97,7 +96,7 @@ public class ProdutoEntity {
         return porcentagemOferta;
     }
 
-    public List<DepartamentoEntity> getDepartamentos() {
+    public Set<DepartamentoEntity> getDepartamentos() {
         return departamentos;
     }
 
@@ -133,7 +132,7 @@ public class ProdutoEntity {
         this.porcentagemOferta = porcentagemOferta;
     }
 
-    public void setDepartamentos(List<DepartamentoEntity> departamentos) {
+    public void setDepartamentos(Set<DepartamentoEntity> departamentos) {
         this.departamentos = departamentos;
     }
 

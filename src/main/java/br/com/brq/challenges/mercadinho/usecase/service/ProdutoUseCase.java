@@ -1,6 +1,6 @@
 package br.com.brq.challenges.mercadinho.usecase.service;
 
-import br.com.brq.challenges.mercadinho.entrypoint.model.request.ProdutoUpdateModelRequest;
+import br.com.brq.challenges.mercadinho.usecase.domain.Departamento;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
 
 import java.util.List;
@@ -20,4 +20,8 @@ public interface ProdutoUseCase {
     void ativarProdutos(List<Produto> produtos);
 
     void inativarProdutos(List<Produto> produtos);
+
+    void adicionarDepartamentoEmProduto(String idProduto, List<Departamento> departamentos);
+
+    void removerDepartamentoEmProduto(String idProduto, List<Departamento> departamentos);
 }
