@@ -9,7 +9,8 @@ public enum CodigosExceptionHandlerEnum {
     INTERNAL_SERVER_ERROR("/erro-generico", 500),
     NOT_FOUND("/recurso-nao-encontrado", 404),
     CONFLICT("/entidade-em-uso", 409),
-    UNPROCESSABLE_ENTITY("/regra-negocio-invalida", 422);
+    UNPROCESSABLE_ENTITY("/regra-negocio-invalida", 422),
+    BAD_REQUEST("/requisicao-invalida", 400);
 
     private final String url;
     private final Integer httpStatus;

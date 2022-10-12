@@ -1,10 +1,13 @@
 package br.com.brq.challenges.mercadinho.entrypoint.model.request;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.validation.constraints.NotBlank;
 
 public class ProdutoAtivacaoModelRequest {
 
     @NotBlank
+    @JsonDeserialize(using = StringTrimModelRequest.class)
     private String id;
 
     public ProdutoAtivacaoModelRequest() {

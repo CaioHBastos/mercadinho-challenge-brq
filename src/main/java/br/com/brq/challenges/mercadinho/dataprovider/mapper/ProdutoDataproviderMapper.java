@@ -1,5 +1,6 @@
 package br.com.brq.challenges.mercadinho.dataprovider.mapper;
 
+import br.com.brq.challenges.mercadinho.dataprovider.dto.ProdutoDtoRequest;
 import br.com.brq.challenges.mercadinho.dataprovider.entities.ProdutoEntity;
 import br.com.brq.challenges.mercadinho.usecase.domain.Oferta;
 import br.com.brq.challenges.mercadinho.usecase.domain.Produto;
@@ -29,6 +30,8 @@ public interface ProdutoDataproviderMapper {
         @Mapping(source = "produtoEntity.departamentos", target = "departamentos")
     })
     Produto map(ProdutoEntity produtoEntity);
+
+    ProdutoDtoRequest mapDto(Produto produto);
 
     @Mappings({
             @Mapping(source = "produtoEntity.idProduto", target = "id"),

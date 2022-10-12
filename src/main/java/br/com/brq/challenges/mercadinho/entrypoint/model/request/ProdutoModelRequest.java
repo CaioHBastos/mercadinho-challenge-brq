@@ -1,5 +1,7 @@
 package br.com.brq.challenges.mercadinho.entrypoint.model.request;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -11,14 +13,17 @@ public class ProdutoModelRequest {
 
     @NotBlank
     @Size(max = 60)
+    @JsonDeserialize(using = StringTrimModelRequest.class)
     private String nome;
 
     @NotBlank
     @Size(max = 256)
+    @JsonDeserialize(using = StringTrimModelRequest.class)
     private String descricao;
 
     @NotBlank
     @Size(max = 40)
+    @JsonDeserialize(using = StringTrimModelRequest.class)
     private String marca;
 
     @NotNull

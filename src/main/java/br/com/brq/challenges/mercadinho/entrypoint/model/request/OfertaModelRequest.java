@@ -1,6 +1,7 @@
 package br.com.brq.challenges.mercadinho.entrypoint.model.request;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import javax.validation.constraints.NotBlank;
@@ -12,6 +13,7 @@ public class OfertaModelRequest {
 
     @NotBlank
     @Size(max = 36)
+    @JsonDeserialize(using = StringTrimModelRequest.class)
     private String idProduto;
 
     @NotNull

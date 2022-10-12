@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<ProdutoEntity, String> {
+public interface ProdutoRepository extends JpaRepository<ProdutoEntity, String>, ProdutoRepositoryCustom {
 
     Optional<ProdutoEntity> findByNomeProduto(String nome);
 

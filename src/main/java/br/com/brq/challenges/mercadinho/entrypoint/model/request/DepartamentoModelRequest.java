@@ -1,5 +1,7 @@
 package br.com.brq.challenges.mercadinho.entrypoint.model.request;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -7,10 +9,12 @@ public class DepartamentoModelRequest {
 
     @NotBlank
     @Size(max = 30)
+    @JsonDeserialize(using = StringTrimModelRequest.class)
     private String nome;
 
     @NotBlank
     @Size(max = 256)
+    @JsonDeserialize(using = StringTrimModelRequest.class)
     private String descricao;
 
     public DepartamentoModelRequest() {

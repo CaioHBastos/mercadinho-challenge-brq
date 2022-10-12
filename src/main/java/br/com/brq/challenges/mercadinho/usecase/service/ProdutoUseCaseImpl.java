@@ -41,8 +41,8 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     }
 
     @Override
-    public List<Produto> buscarProdutos() {
-        List<Produto> produtos = produtoGateway.buscarTodosProdutos();
+    public List<Produto> buscarProdutos(Produto produto) {
+        List<Produto> produtos = produtoGateway.buscarTodosProdutos(produto);
 
         if (produtos.isEmpty()) {
             throw new NenhumConteudoEncontradoException("Não existem cadastro de produtos");
@@ -100,47 +100,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
             produtoAtual.setPreco(novoProduto.getPreco());
         }
 
-        if (Objects.nonNull(novoProduto.getAtivo())) {
-
-            if (!novoProduto.getAtivo()) {
-                produtoAtual.setOfertado(Boolean.FALSE);
-                produtoAtual.setPorcentagemOferta(0);
-            }
-
-            produtoAtual.setAtivo(novoProduto.getAtivo());
-        }
-
-        if (Objects.nonNull(novoProduto.getOfertado())) {
-
-            if (!produtoAtual.getAtivo()) {
-                throw new RegraProdutoException("Não é possível ofertar esse produto, porque o mesmo não está ativo.");
-            }
-
-            if (Objects.isNull(novoProduto.getPorcentagemOferta())) {
-                throw new RegraProdutoException("Para ofertar um produto é obrigatório informar a porcentagem de oferta.");
-            }
-
-            if (produtoAtual.getOfertado() && novoProduto.getPorcentagemOferta() <= 0 ) {
-                throw new RegraProdutoException("Não é possível ofertar o produto, sem informar a porcentagem de oferta.");
-            }
-
-            produtoAtual.setOfertado(novoProduto.getOfertado());
-        }
-
-        if (Objects.nonNull(novoProduto.getPorcentagemOferta())) {
-
-            if (!produtoAtual.getOfertado()) {
-                throw new RegraProdutoException("Não é possível adicionar uma porcentagem de oferta a esse produto, porque o mesmo não está sendo ofertado.");
-            }
-
-            if (novoProduto.getPorcentagemOferta() < 0) {
-                throw new RegraProdutoException("A porcentagem da oferta tem que ser maior que 0.");
-            }
-
-            produtoAtual.setPorcentagemOferta(novoProduto.getPorcentagemOferta());
-        }
-
-        if (!novoProduto.getDepartamentos().isEmpty()) {
+        if (Objects.nonNull(novoProduto.getDepartamentos())) {
             validarDepartamento(novoProduto);
 
             produtoAtual.setDepartamentos(novoProduto.getDepartamentos());

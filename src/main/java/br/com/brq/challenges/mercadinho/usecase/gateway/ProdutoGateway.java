@@ -12,7 +12,7 @@ public interface ProdutoGateway {
 
     Optional<Produto> buscarProdutoPorNome(String nomeProduto);
 
-    List<Produto> buscarTodosProdutos();
+    List<Produto> buscarTodosProdutos(Produto produto);
 
     Optional<Produto> detalharProdutoPorId(String idProduto);
 

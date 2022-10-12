@@ -1,5 +1,6 @@
 package br.com.brq.challenges.mercadinho.dataprovider.implementation;
 
+import br.com.brq.challenges.mercadinho.dataprovider.dto.ProdutoDtoRequest;
 import br.com.brq.challenges.mercadinho.dataprovider.entities.ProdutoEntity;
 import br.com.brq.challenges.mercadinho.dataprovider.mapper.ProdutoDataproviderMapper;
 import br.com.brq.challenges.mercadinho.dataprovider.repositories.ProdutoRepository;
@@ -50,8 +51,9 @@ public class ProdutoImplementation implements ProdutoGateway {
     }
 
     @Override
-    public List<Produto> buscarTodosProdutos() {
-        List<ProdutoEntity> produtosEntity = produtoRepository.findAll();
+    public List<Produto> buscarTodosProdutos(Produto produto) {
+        ProdutoDtoRequest produtoDtoRequest = produtoDataproviderMapper.mapDto(produto);
+        List<ProdutoEntity> produtosEntity = produtoRepository.filterBy(produtoDtoRequest);
         return produtoDataproviderMapper.map(produtosEntity);
     }
 

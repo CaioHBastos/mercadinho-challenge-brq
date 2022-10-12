@@ -9,7 +9,7 @@ public interface ProdutoUseCase {
 
     Produto criarProduto(Produto produto);
 
-    List<Produto> buscarProdutos();
+    List<Produto> buscarProdutos(Produto produto);
 
     Produto detalharProduto(String idProduto);
 
